@@ -21,8 +21,7 @@ public class LoginServlet extends HttpServlet {
 
 	public static int empId;
 	public static String empSSN;
-	
-	private userValidationService service = new userValidationService();
+	public static String[] books;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
@@ -44,25 +43,27 @@ public class LoginServlet extends HttpServlet {
 		String name = request.getParameter("name");
 		String password = request.getParameter("password");
 		
-		System.out.println(name + password);
+		System.out.println("ID"+name +"   Password "+ password);
 
 		boolean valid = false;
-
-		if((name != null) && (name != "")) {
+		String ord = DatabaseConnector.getOrderList();
+		request.setAttribute("Orders", ord);
+		
+		if(name != null && name !="") {
 			try {
 			System.out.println("mem not null");
 			int i = Integer.parseInt(name);
 			empId = i;
-			valid = true;
-			//valid = DatabaseConnector.validateMember(i);
+			valid = DatabaseConnector.validateMember(i);
 			if(valid) {
-			//	String memInfo = DatabaseConnector.getMemberInfo(i);
-			//	request.setAttribute("info",memInfo);
-			//	String own = DatabaseConnector.getOwnedBooks(i);
-			//	request.setAttribute("owend",own);
-			//	String result = DatabaseConnector.getAllBooksInfo();
-			//	request.setAttribute("set", result);
-				System.out.println("Running Member Page");
+				String memInfo[] = DatabaseConnector.getMemberInfo(i);
+				request.setAttribute("info",memInfo);
+				String own = DatabaseConnector.getOwnedBooks(i);
+				request.setAttribute("owend",own);
+				String[] result = DatabaseConnector.getAllBooksInfo();
+				books = result;
+				request.setAttribute("set", result);
+				request.setAttribute("Welcome", "Currently Available Books");
 				request.getRequestDispatcher("/WEB-INF/views/MemberPage.jsp").forward(request, response);
 
 			}
@@ -71,28 +72,35 @@ public class LoginServlet extends HttpServlet {
 				request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
 			}
 
-		}else if(password != null && (password != "")) {
+		}
+		else if(password != "") {
 			try {
 			System.out.println("ssn not null");
 			valid = DatabaseConnector.validateEmployee(password);
 			if(valid) {
-				String empInfo = DatabaseConnector.getEmployeeInfo(password);
-				empSSN = empInfo;
+				empSSN = password;
+				String[] empInfo = DatabaseConnector.getEmployeeInfo(password);
 				request.setAttribute("info",empInfo);
-				String result = DatabaseConnector.getAllBooksInfo();
+				String[] result = DatabaseConnector.getAllBooksInfo();
 				String curr = DatabaseConnector.getOrderList();
 				request.setAttribute("curr",curr);
 				request.setAttribute("set", result);
+				request.setAttribute("Welcome", "Currently Available Books");
 				request.getRequestDispatcher("/WEB-INF/views/EmployeePage.jsp").forward(request, response);
 			}
 			else {
+				System.out.println("Error 1");
 				request.setAttribute("errorMessage", "Invalid Credentials");
 				request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
 			}
 		}catch(Exception c) {
+			System.out.println("Error 2");
 			request.setAttribute("errorMessage", "Invalid Credentials");
 			request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
 		}
+		}else {
+			System.out.println("NewUser");
+			request.getRequestDispatcher("/WEB-INF/views/NewUser.jsp").forward(request, response);
 		}
 		
 

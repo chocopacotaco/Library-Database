@@ -13,7 +13,7 @@
 <title>Library Database</title>
 </head>
 <header class="w3-container w3-theme-d3 w3-padding-16">
-  <h1>Library System Login</h1>
+  <h1>New User</h1>
 </header>
 <body>
 <p><font color = "red">
@@ -21,21 +21,13 @@ ${errorMessage }
 </font></p> 
 
 <div class="w3-container w3-half w3-margin-top">
-<form class="w3-container w3-card-4" action="/login.do" method= "post">
+<form class="w3-container w3-card-4" action="/CreateNew.do" method= "post">
 <p>
-<input class="w3-input" name="name" type="text" style="width:90%">
-<label>Member ID Login:</label></p>
-
-<p>
-<input class="w3-input" name ="password" type="password" style="width:90%">
-<label>Employee ID Login:</label></p>
-
-<p>
-<button type ="submit" value ="Login"> Submit</button>
+<button type ="submit" name = "mem" value ="New Member"> New Member</button>
 </p>
-
-<p><label>New Member/Employee?</label>
-<button type ="submit" value ="Create"> Create </button>
+Or
+<p>
+<button type ="submit" name="emp" value ="New Member"> New Employee</button>
 </p>
 
 </form>

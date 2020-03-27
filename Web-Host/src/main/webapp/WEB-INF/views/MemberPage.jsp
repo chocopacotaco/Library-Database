@@ -53,7 +53,6 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
 
 <!-- Navbar on small screens -->
 <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
-
   <a href="#" class="w3-bar-item w3-button w3-padding-large">My Profile</a>
 </div>
 
@@ -86,43 +85,30 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
         <div class="w3-col m12">
           <div class="w3-card w3-round w3-white">
              <div class="w3-container w3-padding">
-              <h6 class="w3-opacity">${admin} </h6>
+              <h6 class="w3-opacity">Currently Owned Books: ${owned} </h6>
 
-				<form action="/emp.do" method= "post">
-                Search For a Book: <input name="Book Name" type="text" placeholder ="Book Name"/><input type ="submit" value ="Search"/>
-                </form>
-			</div>
-			<div class="w3-container w3-padding">
-				<form action="/emp.do" method= "post">
-				Show all Employees  <input type ="submit" name="button1" value ="Show"/>
-				</form>
-			</div>
-			<div class="w3-container w3-padding">
-				<form action="/emp.do" method= "post">
-				Show all Members <input type ="submit" name="button2" value ="Show"/>
-				</form>
-			</div>
-			<div class="w3-container w3-padding">
-				<form action="/emp.do" method= "post">
-				Show all Books <input type ="submit" name="button3" value ="Show"/>
-				</form>
-			</div>
-			<div class="w3-container w3-padding">
-				<form action="/emp.do" method= "post">
-				Drop a Member:<input name="memID" type="text" name="dropMem" placeholder =" (MemberID)"/><input type ="submit" value ="Drop"/>
-				</form>
-			</div>
-			<div class="w3-container w3-padding">
-				<form action="/emp.do" method= "post">
-				Drop An Employee : <input name="empID" type="text" name="dropEmp" placeholder ="(Employee SSN)"/><input type ="submit" value ="Drop"/>
-				</form>
-			</div>
-			<div class="w3-container w3-padding">
-				<form action="/emp.do" method= "post">
-				<p>Books To Order : ${Orders}</p>
-				</form>
-			</div>
-            
+              <form action="/main.do" method= "post">
+			  Return a book: <input name="Return Name" type="text" placeholder ="Book ID"/><input type ="submit" value ="Return"/> 
+			  </form>
+            </div>
+            <div class="w3-container w3-padding">
+            <form action="/main.do" method= "post">
+              Search For a Book: <input name="Book Name" type="text" placeholder ="Book Name"/><input type ="submit" value ="Search"/>
+              </form>
+            </div>
+          </div>
+          <div class="w3-card w3-round w3-white">
+          <div class="w3-container w3-padding">
+              <h6 class="w3-opacity">Request a Book to Order: </h6>
+
+              <form action="/main.do" method= "post">
+              	<p>
+			  	Book Name: <input name="Order Name" type="text" placeholder ="Book Name"/></p>
+			  	<p>
+			  	Library To Order To: <input name="libID" type="text" placeholder ="1 - 3"/></p>
+			  	<input type ="submit" value ="Order"/> 
+			  </form>
+            </div>
           </div>
         </div>
       </div>
@@ -145,46 +131,26 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
 
 <%
         String[] nameList=(String[])request.getAttribute("set");
-		System.out.println("Length:"+nameList.length);
-		if(nameList.length >324){
-	        out.print("<tr>");
-	        out.print("<td >"+nameList[0]+"</td>");
-	        out.print("<td>"+nameList[1]+"</td>");
-	        out.print("<td>"+nameList[2]+"</td>");
-	        out.print("<td>"+nameList[3]+"</td>");
-	        out.print("<td>"+nameList[4]+"</td>");
-	        out.print("<td>"+nameList[5]+"</td>");
-	        out.print("</tr>");
-	        for(int i=6;i<nameList.length;i+=6){
-	            out.print("<tr>");
-	            for(int x=i;x<i+6;x++){
-	                out.print("<td>"+nameList[x]+"</td>");
-	       		}
-	            out.print("</tr>");
-	        }
-	        out.print("</table>");
-		}else{
-	        out.print("<tr>");
-	        out.print("<td >"+nameList[0]+"</td>");
-	        out.print("<td>"+nameList[1]+"</td>");
-	        out.print("<td>"+nameList[2]+"</td>");
-	        out.print("<td>"+nameList[3]+"</td>");
-	        out.print("<td>"+nameList[4]+"</td>");
-	        out.print("<td>"+nameList[5]+"</td>");
-	        out.print("<td>"+nameList[6]+"</td>");
-	        out.print("<td>"+nameList[7]+"</td>");
-	        out.print("<td>"+nameList[8]+"</td>");
-	        out.print("</tr>");
-	        for(int i=9;i<nameList.length;i+=9){
-	            out.print("<tr>");
-	            for(int x=i;x<i+9;x++){
-	                out.print("<td>"+nameList[x]+"</td>");
-	       		}
-	            out.print("</tr>");
-	        }
-	        out.print("</table>");
-		}
 
+        out.print("<tr>");
+        out.print("<td >"+nameList[0]+"</td>");
+        out.print("<td>"+nameList[1]+"</td>");
+        out.print("<td>"+nameList[2]+"</td>");
+        out.print("<td>"+nameList[3]+"</td>");
+        out.print("<td>"+nameList[4]+"</td>");
+        out.print("<td>"+nameList[5]+"</td>");
+        out.print("<td>"+nameList[6]+"</td>");
+        out.print("<td>"+nameList[7]+"</td>");
+        out.print("<td>"+nameList[8]+"</td>");
+        out.print("</tr>");
+        for(int i=9;i<nameList.length;i+=9){
+            out.print("<tr>");
+            for(int x=i;x<i+9;x++){
+                out.print("<td>"+nameList[x]+"</td>");
+       		}
+            out.print("</tr>");
+        }
+        out.print("</table>");
     %>
   
 <!-- End Page Container -->

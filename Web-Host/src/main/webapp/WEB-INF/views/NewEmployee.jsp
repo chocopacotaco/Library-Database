@@ -13,7 +13,7 @@
 <title>Library Database</title>
 </head>
 <header class="w3-container w3-theme-d3 w3-padding-16">
-  <h1>Library System Login</h1>
+  <h1>Create New Employee</h1>
 </header>
 <body>
 <p><font color = "red">
@@ -21,21 +21,33 @@ ${errorMessage }
 </font></p> 
 
 <div class="w3-container w3-half w3-margin-top">
-<form class="w3-container w3-card-4" action="/login.do" method= "post">
+<form class="w3-container w3-card-4" action="/CreateNew.do" method= "post">
 <p>
-<input class="w3-input" name="name" type="text" style="width:90%">
-<label>Member ID Login:</label></p>
+<input class="w3-input" name="fname" type="text" required style="width:90%">
+<label>First Name:</label></p>
 
 <p>
-<input class="w3-input" name ="password" type="password" style="width:90%">
-<label>Employee ID Login:</label></p>
+<input class="w3-input" name="lname" type="text" required style="width:90%">
+<label>Last Name:</label></p>
 
 <p>
-<button type ="submit" value ="Login"> Submit</button>
-</p>
+<input class="w3-input" name ="ssn" type="password" required style="width:90%">
+<label>Employee SSN:</label></p>
 
-<p><label>New Member/Employee?</label>
-<button type ="submit" value ="Create"> Create </button>
+<p>
+<input class="w3-input" name="job" type="text" required style="width:90%">
+<label>Job Title:</label></p>
+
+<p>
+<input class="w3-input" name ="hours" type="password" required style="width:90%">
+<label>Employee Hours Per Week:</label></p>
+
+<p>
+<input class="w3-input" name ="libID" type="password" required style="width:90%">
+<label>Library ID (1 - 3):</label></p>
+
+<p>
+<button type ="submit" name= "newEmp" value ="Login"> Create</button>
 </p>
 
 </form>
