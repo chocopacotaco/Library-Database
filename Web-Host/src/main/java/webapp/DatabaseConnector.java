@@ -3,6 +3,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DatabaseConnector {
@@ -19,8 +20,8 @@ public class DatabaseConnector {
 	try{  
 		
 		//Class.forName("com.mysql.jdbc.Driver");  
-		Class.forName("com.mysql.cj.jdbc.Driver");  
-		Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","toor"); 
+		Class.forName("com.mysql.jdbc.Driver");  
+		Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","1qaz2wsx!QAZ@WSX"); 
 		Statement stmt=con.createStatement(); 
 		System.out.println("Connection Sucessful");
 		//this is to find the MemeberId as a result set
@@ -119,7 +120,10 @@ public class DatabaseConnector {
 			}
 		}
 	}//this will catch the error if it doesnt connect
-	catch(Exception e){System.out.println(e);} 
+	catch(Exception e){
+		System.out.println("Aint working chief");
+		System.out.println(e);
+		} 
 	
 }
 	public static void Menu() {
@@ -141,8 +145,8 @@ public class DatabaseConnector {
 		boolean check = false;
 		int ID = password;
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");  
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","toor"); 
+			Class.forName("com.mysql.jdbc.Driver");  
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","1qaz2wsx!QAZ@WSX"); 
 			Statement stmt=con.createStatement(); 
 			System.out.println("Connection Sucessful checking member id");
 			//Search database for match
@@ -170,45 +174,83 @@ public class DatabaseConnector {
 		return check;
 	}
 	//Displays the Specifically searched books
-	public static String getSpecificBooks(String bName) {
-		String result ="";
-		result +=  "BookName"+ "|";
-		result += "NumOfBookOrdered"+ "|";
-		result += "AuthorFirstName"+ "|";
-		result += "AuthorLastName"+ "|";
-		result += "DateOfPublication"+ "|";
-		result += "DewDecimalNum"+ "|";
-		result += "NumberAvailable"+ "|";
-		result += "Number_in_Total"+ "|";
-		result += "LibraryId"+ "|";
-		result +="\n";
+	public static String[] getSpecificBooks(String bName) {
+		ArrayList<String> a1 = new ArrayList<String>(); 
+		String result[] =  new String[500];
+		a1.add("BookName");
+		a1.add("NumOfBookOrdered");
+		a1.add("AuthorFirstName");
+		a1.add("AuthorLastName");
+		a1.add("DateOfPublication");
+		a1.add("DewDecimalNum");
+		a1.add("NumberAvailable");
+		a1.add("Number_in_Total");
+		a1.add("LibraryId");
+
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");  
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","toor"); 
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","1qaz2wsx!QAZ@WSX"); 
 			Statement avail = con.createStatement();
-			ResultSet res = avail.executeQuery("SELECT * FROM Book WHERE BookName LIKE '%"+bName+"%';");
+			ResultSet res = avail.executeQuery("SELECT BookName, "
+					+ "NumOfBookOrdered, AuthorFirstName, AuthorLastName,"
+					+ "DateOfPublication, DewDecimalNum, NumberAvailable, "
+					+ "NumberAvailable, Number_in_Total, LibraryId FROM Book WHERE BookName LIKE '%"+bName+"%';");
+			int a = 9;
 			while (res.next()) {
-				result +=  res.getString("BookName")+ "|";
-				result += res.getInt("NumOfBookOrdered")+ "|";
-				result += res.getString("AuthorFirstName")+ "|";
-				result += res.getString("AuthorLastName")+ "|";
-				result += res.getString("DateOfPublication")+ "|";
-				result += res.getInt("DewDecimalNum")+ "|";
-				result += res.getInt("NumberAvailable")+ "|";
-				result += res.getInt("Number_in_Total")+ "|";
-				result += res.getInt("LibraryId")+ "|";
-				result +="\n";
+
+				a1.add(res.getString("BookName"));
+				a++;
+				int v = res.getInt("NumOfBookOrdered");
+				a1.add(Integer.toString(v));
+				a++;
+				a1.add(res.getString("AuthorFirstName"));
+				a++;
+				a1.add(res.getString("AuthorLastName"));
+				a++;
+				a1.add( res.getString("DateOfPublication"));
+				a++;
+				v = res.getInt("DewDecimalNum");
+				a1.add(Integer.toString(v));
+				a++;
+				v = res.getInt("NumberAvailable");
+				a1.add(Integer.toString(v));
+				a++;
+				v = res.getInt("Number_in_Total");
+				a1.add(Integer.toString(v));
+				a++;
+				v = res.getInt("LibraryId");
+				a1.add(Integer.toString(v));
+				a++;
+
 
 			}
 			con.close();
 			}catch(Exception e){System.out.println(e);}
-		return result;
+        String str[] = new String[a1.size()]; 
+        
+        // ArrayList to Array Conversion 
+        for (int j = 0; j < a1.size(); j++) { 
+  
+            // Assign each value to String array 
+            str[j] = a1.get(j); 
+        }
+		return str;
+	}
+	public static void setOwnedBooks(int id, int bid) {
+		String result = "";
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");  
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","1qaz2wsx!QAZ@WSX"); 
+	   		String query = "INSERT INTO MemberToBook VALUES ('"+id+"','"+bid+"','12/6/2019','1');";
+	   		Statement stmt=con.createStatement(); 
+	   		stmt.executeUpdate(query); 
+		}catch(Exception e){System.out.println(e);} 
 	}
 	public static String getOwnedBooks(int i) {
 		String result = "";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");  
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","toor"); 
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","1qaz2wsx!QAZ@WSX"); 
 			Statement stmt=con.createStatement();
 			ResultSet res = stmt.executeQuery("SELECT BookId FROM MemberToBook WHERE MemberId ='"+i+"';");
 			while(res.next()) {
@@ -221,27 +263,24 @@ public class DatabaseConnector {
 	public static void returnBook(int bookId, int memId) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");  
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","toor"); 
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","1qaz2wsx!QAZ@WSX"); 
 			Statement stmt=con.createStatement();
 			ResultSet delete = stmt.executeQuery("Delete FROM MemberToBook WHERE BookId = '"+bookId+"' AND MemberId ='"+memId+"';");
 
 		}catch(Exception e){System.out.println(e);} 
 
 	}
-	public static String getMemberInfo(int id) {
-		String result = "\r\n";
+	public static String[] getMemberInfo(int id) {
+		String result[] = new String[3];
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");  
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","toor"); 
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","1qaz2wsx!QAZ@WSX"); 
 			Statement stmt=con.createStatement(); 
 			ResultSet MemName = stmt.executeQuery("select Member_Fname, Member_Lname, Address, MState, MCity from LibMember where Member_ID = '"+ id+"';");
 			while(MemName.next()) {
-				result+= "\r\n";
-				result+=("Name: "+MemName.getString(1)+" "+MemName.getString(2));
-				result+= "\r\n";
-				result+=("ID: "+ id);
-				result+= "\r\n";
-				result+=("Address: " + MemName.getString(3)+", "+MemName.getString(4)+", "+MemName.getString(5));
+				result[0] = ("Name: "+MemName.getString(1)+" "+MemName.getString(2));
+				result[1] =("ID: "+ id);
+				result[2] =("Address: " + MemName.getString(3)+", "+MemName.getString(4)+", "+MemName.getString(5));
 			}
 			con.close();
 		}//this will catch the error if it doesnt connect
@@ -255,7 +294,7 @@ public class DatabaseConnector {
 		String SSN = ssn;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");  
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","toor"); 
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","1qaz2wsx!QAZ@WSX"); 
 			Statement stmt=con.createStatement(); 
 			System.out.println("Connection Sucessful");
 		//Search database for match
@@ -283,86 +322,272 @@ public class DatabaseConnector {
 		String result = null;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");  
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","toor"); 
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","1qaz2wsx!QAZ@WSX");  
 			Statement stmt=con.createStatement(); 
 			
 			System.out.println("Connection Sucessful, Getting orders");
 			ResultSet Order = stmt.executeQuery("SELECT BookName FROM OrderList;");
 			while(Order.next()) {
 				result+=(Order.getString("BookName"));
-				result+="\n";
+				result+=",";
 			}
+			System.out.println("Orders:"+result);
 			con.close();
 		}catch(Exception e){System.out.println(e);} 
 		return result;
 	}
-	public static void setOrder(String name) {
-
+	public static void setOrder(String name, String id) {
+		int z =Integer.parseInt(id);
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");  
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","toor"); 
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","1qaz2wsx!QAZ@WSX"); 
 			Statement stmt=con.createStatement(); 
 			
-			System.out.println("Connection Sucessful, getting orders");
-			String query = ("insert into OrderList values('"+name+"');");
+			System.out.println("Connection Sucessful, setting orders");
+			String query = ("insert into OrderList (BookName, LibraryIdO, EmployeeOrder) values('"+name+"','"+z+"','107-84-2427');");
 			stmt.executeUpdate(query);
 			con.close();
 		}catch(Exception e){System.out.println(e);} 
 
 	}
-	public static String getEmployeeInfo(String ssn) {
+	public static String[] getEmployeeInfo(String ssn) {
 
-		String result = "\n";
+		String result[] = new String[3];
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");  
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","toor"); 
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","1qaz2wsx!QAZ@WSX"); 
 			Statement stmt=con.createStatement(); 
 			System.out.println("Connection Sucessful");
 			ResultSet name = stmt.executeQuery("select Employee_Fname, Employee_Lname, Job, LibraryId from Employee where Employee_SSN = '"+ssn+"';");
-			ResultSet location = stmt.executeQuery("select LibraryName, City, State from LibraryLocation where LibraryIdLocation = '"+name.getString(4));
+		
 			while(name.next()) {
-				result+=("Name: "+name.getString(1)+" "+ name.getString(2)+"\n");
-				result+=("Job: "+ name.getString(3)+"\n");
-				result+=("location: "+ location.getString(1)+" ,"+location.getString(2)+ ", " + location.getString(3));
+				result[0] = ("Name: "+name.getString(1)+" "+ name.getString(2));
+				result[1] = ("Job: "+ name.getString(3));
+				result[2] = ("Location: "+ name.getString(4));
 			}
 			con.close();
 		}catch(Exception e){System.out.println(e);} 
 		return result;
 	}
-	public static String getAllBooksInfo() {
-		String result ="";
-		result +=  "BookName"+ "|";
-		result += "NumOfBookOrdered"+ "|";
-		result += "AuthorFirstName"+ "|";
-		result += "AuthorLastName"+ "|";
-		result += "DateOfPublication"+ "|";
-		result += "DewDecimalNum"+ "|";
-		result += "NumberAvailable"+ "|";
-		result += "Number_in_Total"+ "|";
-		result += "LibraryId"+ "|";
-		result +="\n";
+	public static String[] getAllBooksInfo() {
+		ArrayList<String> a1 = new ArrayList<String>(); 
+		String result[] =  new String[500];
+		a1.add("BookName");
+		a1.add("NumOfBookOrdered");
+		a1.add("AuthorFirstName");
+		a1.add("AuthorLastName");
+		a1.add("DateOfPublication");
+		a1.add("DewDecimalNum");
+		a1.add("NumberAvailable");
+		a1.add("Number_in_Total");
+		a1.add("LibraryId");
+
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");  
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","toor"); 
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","1qaz2wsx!QAZ@WSX"); 
 			Statement avail = con.createStatement();
-			ResultSet res = avail.executeQuery("SELECT * FROM Book;");
+			ResultSet res = avail.executeQuery("SELECT BookName, "
+					+ "NumOfBookOrdered, AuthorFirstName, AuthorLastName,"
+					+ "DateOfPublication, DewDecimalNum, NumberAvailable, "
+					+ "NumberAvailable, Number_in_Total, LibraryId FROM Book;");
+			int a = 9;
 			while (res.next()) {
-				result +=  res.getString("BookName")+ "|";
-				result += res.getInt("NumOfBookOrdered")+ "|";
-				result += res.getString("AuthorFirstName")+ "|";
-				result += res.getString("AuthorLastName")+ "|";
-				result += res.getString("DateOfPublication")+ "|";
-				result += res.getInt("DewDecimalNum")+ "|";
-				result += res.getInt("NumberAvailable")+ "|";
-				result += res.getInt("Number_in_Total")+ "|";
-				result += res.getInt("LibraryId")+ "|";
-				result +="\n";
+
+				a1.add(res.getString("BookName"));
+				a++;
+				int v = res.getInt("NumOfBookOrdered");
+				a1.add(Integer.toString(v));
+				a++;
+				a1.add(res.getString("AuthorFirstName"));
+				a++;
+				a1.add(res.getString("AuthorLastName"));
+				a++;
+				a1.add( res.getString("DateOfPublication"));
+				a++;
+				v = res.getInt("DewDecimalNum");
+				a1.add(Integer.toString(v));
+				a++;
+				v = res.getInt("NumberAvailable");
+				a1.add(Integer.toString(v));
+				a++;
+				v = res.getInt("Number_in_Total");
+				a1.add(Integer.toString(v));
+				a++;
+				v = res.getInt("LibraryId");
+				a1.add(Integer.toString(v));
+				a++;
+
 
 			}
 			con.close();
 			}catch(Exception e){System.out.println(e);} 
+        String str[] = new String[a1.size()]; 
+        
+        // ArrayList to Array Conversion 
+        for (int j = 0; j < a1.size(); j++) { 
+  
+            // Assign each value to String array 
+            str[j] = a1.get(j); 
+        }
+		return str;
 
-		return result;
 	}
-	
+	public static String[] getAllEmployeesInfo() {
+		ArrayList<String> a1 = new ArrayList<String>(); 
+		String result[] =  new String[500];
+		a1.add("Employee_Fname");
+		a1.add("Employee_Lname");
+		a1.add("Employee_SSN");
+		a1.add("Job");
+		a1.add("Hours_per_week");
+		a1.add("LibraryId");
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");  
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","1qaz2wsx!QAZ@WSX"); 
+			Statement avail = con.createStatement();
+			ResultSet res = avail.executeQuery("SELECT Employee_Fname, "
+					+ "Employee_Lname, Employee_SSN, Job,"
+					+ "Hours_per_week, LibraryId FROM Employee;");
+			int a = 9;
+			while (res.next()) {
+				int v;
+				a1.add(res.getString("Employee_Fname"));
+				a++;
+				a1.add(res.getString("Employee_Lname"));
+				a++;
+				a1.add(res.getString("Employee_SSN"));
+				a++;
+				a1.add(res.getString("Job"));
+				a++;
+				v = res.getInt("Hours_per_week");
+				a1.add(Integer.toString(v));
+				a++;
+				v = res.getInt("LibraryId");
+				a1.add(Integer.toString(v));
+				a++;
+
+
+			}
+			con.close();
+			}catch(Exception e){System.out.println(e);} 
+        String str[] = new String[a1.size()]; 
+        
+        // ArrayList to Array Conversion 
+        for (int j = 0; j < a1.size(); j++) { 
+  
+            // Assign each value to String array 
+            str[j] = a1.get(j); 
+        }
+		return str;
+
+	}
+	public static String[] getAllMembersInfo() {
+		ArrayList<String> a1 = new ArrayList<String>(); 
+		String result[] =  new String[500];
+		a1.add("Member_Fname");
+		a1.add("Member_Lname");
+		a1.add("Member_ID");
+		a1.add("Address");
+		a1.add("MState");
+		a1.add("MLibary");
+
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");  
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","1qaz2wsx!QAZ@WSX"); 
+			Statement avail = con.createStatement();
+			ResultSet res = avail.executeQuery("SELECT Member_Fname, Member_Lname, "
+					+ "Member_ID, Address, MState,"
+					+ "MLibary FROM LibMember;");
+			int a = 9;
+			while (res.next()) {
+				int v;
+				a1.add(res.getString("Member_Fname"));
+				a++;
+				a1.add(res.getString("Member_Lname"));
+				a++;
+				v = res.getInt("Member_ID");
+				a1.add(Integer.toString(v));
+				a++;
+				a1.add(res.getString("Address"));
+				a++;
+				a1.add( res.getString("MState"));
+				a++;
+				v = res.getInt("MLibary");
+				a1.add(Integer.toString(v));
+
+			}
+			con.close();
+			}catch(Exception e){System.out.println(e);} 
+        String str[] = new String[a1.size()]; 
+        
+        // ArrayList to Array Conversion 
+        for (int j = 0; j < a1.size(); j++) { 
+  
+            // Assign each value to String array 
+            str[j] = a1.get(j); 
+        }
+		return str;
+
+	}
+	public static void CreateEmployee(String fname2, String lname2, String ssn, String job, String hours, String libID) {
+		
+		int y =Integer.parseInt(hours);
+		int z =Integer.parseInt(libID);
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");  
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","1qaz2wsx!QAZ@WSX"); 
+	   		String query = "insert into Employee VALUES ('"+fname2+"','"+lname2+"','"+ssn+"','"+job+"','"+y+"','"+z+"');";
+	   		Statement stmt=con.createStatement(); 
+	   		stmt.executeUpdate(query); 
+	   		con.close();
+		}catch(Exception e){System.out.println(e);} 
+	}
+	public static void CreateMember(String fname, String lname, String add, String state, String city, String country, String libID) {
+		
+		int z =Integer.parseInt(libID);
+		int newID = 0;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");  
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","1qaz2wsx!QAZ@WSX"); 
+			Statement avail = con.createStatement();
+			ResultSet res = avail.executeQuery("SELECT MAX(Member_ID) AS largestID FROM LibMember;");
+			if(res.next()) {
+				newID = (res.getInt(1));
+			}
+			newID++;
+			System.out.println("Got new ID number:"+newID);
+			String query = "insert into LibMember (Member_Fname, Member_Lname, Member_Id, Address, MState, Mcity, MCountry, MLibary) VALUES ('"+fname+"','"+lname+"','"+newID+"','"+add+"','"+state+"','"+city+"','"+country+"','"+libID+"');";
+	   		Statement stmt=con.createStatement(); 
+	   		stmt.executeUpdate(query); 
+	   		con.close();
+		}catch(Exception e){System.out.println(e);} 
+	}
+	public static void dropEmployee(String id) {
+		
+		System.out.println("Droping Employee:"+id);
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");  
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","1qaz2wsx!QAZ@WSX"); 
+	   		String query = "DELETE FROM employee WHERE Employee_SSN = ('"+id+"');";
+	   		Statement stmt=con.createStatement(); 
+	   		stmt.executeUpdate(query); 
+	   		con.close();
+		}catch(Exception e){System.out.println(e);} 
+	}
+	public static void dropMember(String id) {
+		
+
+		int z =Integer.parseInt(id);
+		System.out.println("Dropping Member Id:"+id);
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");  
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","1qaz2wsx!QAZ@WSX"); 
+	   		String query = "DELETE FROM LibMember WHERE Member_ID = ('"+z+"');";
+	   		Statement stmt=con.createStatement(); 
+	   		stmt.executeUpdate(query); 
+	   		con.close();
+		}catch(Exception e){System.out.println(e);} 
+	}
 }
