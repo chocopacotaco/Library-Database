@@ -29,7 +29,8 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `adminpassword` (
-  `password` varchar(50) NOT NULL
+  `password` varchar(50) NOT NULL,
+  `username` varchar(50) 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -37,9 +38,7 @@ CREATE TABLE `adminpassword` (
 --
 
 INSERT INTO `adminpassword` (`password`) VALUES
-('iamadmin'),
-('iamadmin1'),
-('iamadmin2');
+('123456','admin');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
