@@ -14,7 +14,7 @@ error_reporting(0);
 <body >
 
 		<div class=navbar>
-		<a href="http://localhost/webproject/Page1.php"><img src="http://localhost/webproject/home3.png" style="position:relative; left:7px; top:7px; align:center; width:40px; height:40px;"></a>
+		<a href="http://localhost/webproject/landingpage.php"><img src="http://localhost/webproject/home3.png" style="position:relative; left:7px; top:7px; align:center; width:40px; height:40px;"></a>
 		<form action="bookinfo.php" method=post style="position:fixed; top:0px; right:5px;" >
 		<?php if(is_null($_SESSION['mail'])) echo "<input style='padding:10px; float:right; height:45px;' type=submit class=button name=signIn value='Sign In'>"; ?>        
 		<?php if(!is_null($_SESSION['mail'])) echo "<input style='float:right; padding:10px; height:45px;' type=submit class=button name=signOut value='Sign Out'>"; ?>         
@@ -25,7 +25,7 @@ error_reporting(0);
 		if(isset($_POST['signOut']))
 		{
 			session_unset();
-			header('refresh:0 URL=Page1.php');
+			header('refresh:0 URL=landingpage.php');
 		}
 		elseif (isset($_POST['signIn']))
 		{
