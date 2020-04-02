@@ -5,71 +5,71 @@ error_reporting(0);
 
 
 <html>
-<title>About Developers</title>
 <head>
-<link rel="stylesheet" type="text/css" href="http://localhost/DSW PROJ/CSSstylesheet.css">
+<link rel="stylesheet" type="text/css" href="CSSstylesheet.css">
 </head>
-<body>
+<body style="background-image: url('library.jpg');">
+<div class=navbar>
+        <a href="landingpage.php"><img src="home3.png" style="position:relative; left:7px; top:7px; align:center; width:40px; height:40px;"></a>
+        <form action="bookinfo.php" method=post style="position:fixed; top:0px; right:5px;" >
+        <?php if(is_null($_SESSION['mail'])) echo "<input style='padding:10px; float:right; height:45px;' type=submit class=button name=signIn value='Sign In'>"; ?>        
+        <?php if(!is_null($_SESSION['mail'])) echo "<input style='float:right; padding:10px; height:45px;' type=submit class=button name=signOut value='Sign Out'>"; ?>         
+        </form>
+        </div>
+        <?php
+
+        if(isset($_POST['signOut']))
+        {
+            session_unset();
+            header('refresh:0 URL=landingpage.php');
+        }
+        elseif (isset($_POST['signIn']))
+        {
+            header('refresh:0 URL=signin.php');
+        }
+        ?>
 <?php 
 
-	$host="localhost";
-	$username="root";
-	$password="";
-	$db_name="mydb";
+$tbl_name="adminpassword";
 
-	
-
-if(isset($_POST['submit1']))
+$connect=mysqli_connect('localhost','root','','mydb');
+if(isset($_POST['submit']))
 {
-
-	$connect=mysqli_connect($host,$username,$password,$db_name);
-	if(!$connect)
-	{
-		echo "<script>alert('Connection not established');</script>";
-	}
-	
-	$qry=mysqli_query($connect,"SELECT password FROM adminPassword");
-	$pass=mysqli_fetch_array($qry);
-	if(!$qry) echo "<script>alert('Can't connect to password');</script>";
-	
-	
-	if($pass[0] != $_POST['pass'])
-	{
-		echo "<script>alert('Incorrect Admin Password');</script>";
-	}
-	else {header('refresh:0 URL=adminPage.php');}
-	
+    $username = $_SESSION['username'] = $_POST['user'];
+    $adminpassword=$_POST['pass'];
+    $sql="SELECT * FROM adminpassword WHERE username='$username' and password='$adminpassword'";
+    $result=mysqli_query($connect,$sql);
+    $count=mysqli_num_rows($result);
+    if($count==1)
+    {
+        
+        echo "<script type='text/javascript'>alert('Succesfully Logged In');</script>";
+        header('refresh:0 URL=adminPage.php');
+    }
+    else
+    {
+        echo "<script type='text/javascript'>alert('Incorrect Email and Password Combination');    </script>";
+        header('refresh:0 URL=about.php');
+    }
 }
 
 ?>
 <center>
-<br><br><br><br><br><br>
-<div class=about>
-<br><br><br>
-Developed with Goodwill by
-<br><br>
-Anant Singh :D<br><br>
-</div>
+
 <br>
-<a href="Page1.php"><input type=button class=button value=Home></a>
 <center>
 <br>
-<div class=developers>
-<br>
-<span>&emsp;One of the Developers?&emsp;</span>
-<br>
-<br><center>
-	<div class=developers-content style="align: center;">
-	<form method=post action="about.php">
-	<input type=password name=pass style="width:200px; align: center; padding-left: 10px;" placeholder=" Admin Password">&emsp;&emsp;
-	<input class=button type=submit name=submit1 value=Next>
-	</form>
-	<br>
-	</div></center>
+<div class=frm>
+<br><br><br>
+<form action="about.php" method="post">
+<input type=text name=user placeholder="Admin Username" ></input><br><br>
+<input type="password" name="pass" placeholder="Password" ></input><br><br>
+<input type="reset" class=button></input>&emsp;&emsp;<input type="submit" name="submit" value="Submit" class=button></input><br><br>
+</form>
 </div>
 </center>
 <br>
-	
+    
 </center>
 </body>
 </html>

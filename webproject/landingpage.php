@@ -16,12 +16,12 @@ error_reporting(0);
 
 </head>
 
-<body>
+<body style="background-image: url('library.jpg');">
 <center>
 
 <div style="position: relative; top: 6em;">
 <br><br><br><br>
-<p style="font-size:31; color:	#FFFFFF; text-shadow: 1px 1px 10px black;">Library Management System</p>
+<p style="font-size:31; color:    #FFFFFF; text-shadow: 1px 1px 10px black;">Library Management System</p>
 
 
 <form action="signin.php" method="post">
@@ -37,4 +37,3 @@ Login or Register Now
 </form>
 
 </body>
-

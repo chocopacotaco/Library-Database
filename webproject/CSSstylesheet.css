@@ -1,6 +1,6 @@
 body
 {
-	background-image: url('http://localhost/webproject/wallpaper2.jpg');
+	background-image: url('library.jpg');
 	background-position: center;
 	background-attachment: fixed;
 	font-family: Arial, Helvetica, sans-serif;
@@ -77,22 +77,18 @@ div.developers
 {
 	font-size:12;
 	width: 450px;
-	background-color:rgba(0,0,0,.5);
+	background-color:rgba(0,0,0,0);
 	text-shadow:1px 1px 5px black;
 	border-radius: 3px
 }
 div.developers-content
-{
-	display:none;
-}
-div.developers:hover div.developers-content
 {
 	position: relative;
 	display: block;
 }
 div.about
 {
-	color: rgb(128, 0, 0);
+	color: rgb(255, 255, 255);
 	background-color: rgba(255, 140, 26,.7);
 	font-style: italic;
 	box-shadow: 4px 4px 15px black;

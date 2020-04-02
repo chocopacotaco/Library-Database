@@ -8,30 +8,28 @@ error_reporting(0);
 <html>
 <title>Sign In</title>
 <head>
-<link rel="stylesheet" type="text/css" href="http://localhost/webproject/CSSstylesheet.css">
+<link rel="stylesheet" type="text/css" href="CSSstylesheet.css">
 </head>
 
 <body >
 
-		<div class=navbar>
-		<a href="http://localhost/webproject/Page1.php"><img src="http://localhost/webproject/home3.png" style="position:relative; left:7px; top:7px; align:center; width:40px; height:40px;"></a>
-		<form action="bookinfo.php" method=post style="position:fixed; top:0px; right:5px;" >
-		<?php if(is_null($_SESSION['mail'])) echo "<input style='padding:10px; float:right; height:45px;' type=submit class=button name=signIn value='Sign In'>"; ?>        
-		<?php if(!is_null($_SESSION['mail'])) echo "<input style='float:right; padding:10px; height:45px;' type=submit class=button name=signOut value='Sign Out'>"; ?>         
-		</form>
-		</div>
-		<?php
+        <div class=navbar>
+        <a href="landingpage.php"><img src="home3.png" style="position:relative; left:7px; top:7px; align:center; width:40px; height:40px;"></a>
+        <form action="bookinfo.php" method=post style="position:fixed; top:0px; right:5px;" >      
+        </form>
+        </div>
+        <?php
 
-		if(isset($_POST['signOut']))
-		{
-			session_unset();
-			header('refresh:0 URL=Page1.php');
-		}
-		elseif (isset($_POST['signIn']))
-		{
-			header('refresh:0 URL=signin.php');
-		}
-		?>
+        if(isset($_POST['signOut']))
+        {
+            session_unset();
+            header('refresh:0 URL=landingpage.php');
+        }
+        elseif (isset($_POST['signIn']))
+        {
+            header('refresh:0 URL=signin.php');
+        }
+        ?>
 
 
 <center>
@@ -40,31 +38,31 @@ error_reporting(0);
 
 $tbl_name="userinfo";
 
-$connect=mysqli_connect('localhost','root','dm001192@gt','mydb');
+$connect=mysqli_connect('localhost','root','','mydb');
 if(isset($_POST['submit']))
 {
-	$_SESSION["finame"] = $_POST['fname'];
-	
-	$usermail = $_SESSION['mail'] = $_POST['amail'];
-	$_SESSION['mail']=str_replace('@','at',$_SESSION['mail']);
-	$_SESSION['mail']=str_replace('.','dot',$_SESSION['mail']);
-	
-	
-	$userpassword=$_POST['apassword'];
-	$sql="SELECT * FROM userinfo WHERE mail='$usermail' and password='$userpassword'";
-	$result=mysqli_query($connect,$sql);
-	$count=mysqli_num_rows($result);
-	if($count==1)
-	{
-		
-		//echo "<script type='text/javascript'>alert('Succesfully Logged In');</script>";
-		header('refresh:0 URL=userProf.php');
-	}
-	else
-	{
-		echo "<script type='text/javascript'>alert('Incorrect Email and Password Combination');	</script>";
-		header('refresh:0 URL=signin.php');
-	}
+    $_SESSION["finame"] = $_POST['fname'];
+    
+    $usermail = $_SESSION['mail'] = $_POST['amail'];
+    $_SESSION['mail']=str_replace('@','at',$_SESSION['mail']);
+    $_SESSION['mail']=str_replace('.','dot',$_SESSION['mail']);
+    
+    
+    $userpassword=$_POST['apassword'];
+    $sql="SELECT * FROM userinfo WHERE mail='$usermail' and password1='$userpassword'";
+    $result=mysqli_query($connect,$sql);
+    $count=mysqli_num_rows($result);
+    if($count==1)
+    {
+        
+        //echo "<script type='text/javascript'>alert('Succesfully Logged In');</script>";
+        header('refresh:0 URL=userProf.php');
+    }
+    else
+    {
+        echo "<script type='text/javascript'>alert('Incorrect Email and Password Combination');    </script>";
+        header('refresh:0 URL=signin.php');
+    }
 }
 ?>
 <br><br><br>
@@ -84,4 +82,3 @@ if(isset($_POST['submit']))
 
 </body>
 </html>
-
