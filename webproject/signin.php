@@ -41,7 +41,7 @@ $tbl_name="userinfo";
 $connect=mysqli_connect('localhost','root','','mydb');
 if(isset($_POST['submit']))
 {
-    $_SESSION["finame"] = $$_POST["finame"];
+    $_SESSION["finame"] = $$_POST["fname"];
     
     $usermail = $_SESSION['mail'] = $_POST['amail'];
     $_SESSION['mail']=str_replace('@','at',$_SESSION['mail']);
