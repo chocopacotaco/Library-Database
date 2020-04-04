@@ -71,7 +71,7 @@ if(isset($_POST['author']))
 
 if (isset($_POST['submitI']))
 {
-    $insert="INSERT INTO bookinfo VALUES('$serial','$title','$author')";
+    $insert="INSERT INTO bookinfo (serialNum,title,author,userBookInfoFk) VALUES('$serial','$title','$author', 'null')";
     if(!mysqli_query($connect,$insert))
         echo "<script>alert('There was a problem adding the Book or it already exists in the Library.');</script>";
     else echo "<script>alert('The book is now added');</script>";
@@ -92,7 +92,7 @@ if(isset($_POST['showStudents']))
     header("refresh:0 URL=studentList.php");
 
 if(isset($_POST['showRequested']))
-    header("refresh:0 URL=requestedList.php");
+    header("refresh:0 URL=requestList.php");
 
 
 
