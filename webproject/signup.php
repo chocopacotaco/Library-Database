@@ -54,32 +54,38 @@ if(isset($_POST['submit'])){
     $n7 = $_SESSION["phone"] = $_POST['phone'];
     $n8 = $_SESSION["mail"] = $_POST['mail'];
     $n9 = $_SESSION["password"] = $_POST['password'];
-
-$sql="INSERT INTO userinfo (finame,laname,loadd,ltadd,phone,mail,password1) VALUES('$n1','$n2','$n4','$n5','$n7','$n8','$n9')";
-$sql1="INSERT INTO students(studentName) VALUES('$n1');";
-$sql2="INSERT INTO requestedbooks(bookName) VALUES('$n3');";
-$n8=str_replace('@','at',$n8);
-$n8=str_replace('.','dot',$n8);
-$_SESSION['mail']=$n8;
-//echo "<script type='text/javascript'> alert('$n8'); </script>";
-if(mysqli_query($connect, $sql))
-{
-    mysqli_query($connect, $sql2);
-    mysqli_query($connect, $sql1);
-    echo "<script type='text/javascript'> alert(' Successfully registered '); </script>";
-    //mysqli_close($connect);
-    //$connect=mysqli_connect($host,$username,$password,$db_name);
-    $user1="CREATE TABLE $n8 (serial VARCHAR(10) UNIQUE,title VARCHAR (50),author VARCHAR(30))";//-------CREATING USER SPECIFIC TABLE
-    if(!mysqli_query($connect,$user1))
-    {echo "<script type='text/javascript'> alert('ERROR: Could not able to execute $sql.  . mysqli_error($link);'); </script>";}
     
-    else header('refresh:0 URL=userProf.php');
-}
-else
-{
-    echo "<script type='text/javascript'> alert('ERROR')    </script>";
-    //header('refresh:0 URL=signup.php');
-}
+    $usermail=$_POST['mail'];
+    $sql="SELECT * FROM userinfo WHERE mail='$usermail'";
+    $result=mysqli_query($connect,$sql);
+    $count=mysqli_num_rows($result);
+    if($count > 0){
+        echo "<script type='text/javascript'> alert('This email is already in use!')    </script>";
+        header('refresh:0 URL=signup.php');
+    } else {
+        $sql="INSERT INTO userinfo (finame,laname,loadd,ltadd,phone,mail,password1) VALUES('$n1','$n2','$n4','$n5','$n7','$n8','$n9')";
+        $sql1="INSERT INTO students(studentName) VALUES('$n1');";
+        $sql2="INSERT INTO requestedbooks(bookName) VALUES('$n3');";
+        $n8=str_replace('@','at',$n8);
+        $n8=str_replace('.','dot',$n8);
+        $_SESSION['mail']=$n8;
+        if(mysqli_query($connect, $sql)){
+            mysqli_query($connect, $sql2);
+            mysqli_query($connect, $sql1);
+            echo "<script type='text/javascript'> alert(' Successfully registered '); </script>";
+            //mysqli_close($connect);
+            //$connect=mysqli_connect($host,$username,$password,$db_name);
+            $user1="CREATE TABLE $n8 (serial VARCHAR(10) UNIQUE,title VARCHAR (50),author VARCHAR(30))";//-------CREATING USER SPECIFIC TABLE
+            if(!mysqli_query($connect,$user1)){
+                echo "<script type='text/javascript'> alert('ERROR: Could not able to execute $sql.  . mysqli_error($link);'); </script>";
+            } else header('refresh:0 URL=userProf.php');
+        } else {
+            echo "<script type='text/javascript'> alert('ERROR')    </script>";
+            //header('refresh:0 URL=signup.php');
+        }
+        echo "<script type='text/javascript'> alert('success')    </script>";
+        
+    }
 
 }
 

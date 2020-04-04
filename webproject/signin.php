@@ -70,7 +70,8 @@ if(isset($_POST['submit']))
 <br><br><br>
 <form action="signin.php" method="post">
 
-<input type=text name=fname placeholder="First Name" ></input><br><br>
+<!--input type=text name=fname placeholder="First Name" ></input><br><br-->
+<input type=hidden name=fname placeholder="derek" ></input>
 <input type=text placeholder="Your registered mail" name="amail"></input><br><br>
 <input type="password" name="apassword" placeholder="Password" ></input><br><br>
 <input type="reset" class=button></input>&emsp;&emsp;<input type="submit" name="submit" value="Submit" class=button></input><br><br>
