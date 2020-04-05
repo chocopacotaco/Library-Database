@@ -99,10 +99,31 @@ while($tableRow = mysqli_fetch_array($table))
 }
 echo "</table></div></center>";
 echo "<br><br><br><br><br><br><br>";
+?>
 
 
+<center>
+<form action='bookinfo.php' method=post><div class=table><table>";
+    <tr>
+        <th>Library ID</th>
+        <th>Book Name</th>
+        <th>Author</th>
+        <th>More Info</th>
+    </tr>
+<?php
 
-$table = mysqli_query($connect,"SELECT * FROM bookinfo");
+    $host="localhost";
+    $username="root";
+    $password="";
+    $db_name="mydb";
+    
+$connect= mysqli_connect($host,$username,$password,$db_name);
+if(!$connect)
+{
+    echo "<script type='text/javascript'>alert(' Can't connect to the Database ');    </script>";
+}
+
+$result = mysqli_query($connect,"SELECT * FROM bookinfo");
 $numOfRows = mysqli_num_rows($table);
 $numOfFields = mysqli_num_fields($table);
 $colName = mysqli_query($connect,"SHOW COLUMNS FROM bookinfo");
@@ -111,39 +132,32 @@ $colName = mysqli_query($connect,"SHOW COLUMNS FROM bookinfo");
 echo "<div style='text-align:center;
                     margin:auto;
                     position:relative;
-                    top:7vh;
+                    top:11vh;
                     box-shadow:0px 0px 5px black;
                     border-radius:6px;
                     text-shadow:0px 0px 4px black;
-                    width:30vw;
+                    width:50vw;
                     background-color:rgba(0,0,0,.7);'>
                     <br>
-            These are the Books in our library<br>You can put them in your wishlist
+        Current Book Catalogue
                     <br><br></div>";
 
-//-------------------------------------------------------------PRINTING TABLE
+//--------------------------------------------------------------------------------  PRINTING TABLE
 
-echo "<center><div class=table><table>";
-    echo "<tr>";
-
-while($colNameArr = mysqli_fetch_array($colName))
-{
-    echo "<th>".strtoupper($colNameArr[0])."</th>";
-}
-    echo "</tr>";
-while($tableRow = mysqli_fetch_array($table))
-{
-    echo "<tr>";
-    for($i=0;$i<$numOfFields;$i++)
-    {
-        echo "<td>".$tableRow[$i]."</td>";
+while($row = $result->fetch_assoc()) {
+    echo "<tr>". 
+    "<td>" . $row["serialNum"] . "</td>".
+        "<td>" . $row["title"] . "</td>".
+        "<td>" . $row["author"] . "</td>".
+    "<td><a href='BookExtendedInfo.html'>More Info</a></td>" 
+    . "</tr>";
     }
-    echo "</tr>";
-}
-echo "</table></div></center>";
+echo "</table></div></form></center>";
 echo "<br><br><br><br><br><br><br>";
 
+?>
 
+<?php
 //--------------------------------------------------------------------------ADDING BOOK TO WISHLIST
 
 if(isset($_POST['srl']))
