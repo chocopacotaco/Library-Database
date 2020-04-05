@@ -103,7 +103,7 @@ echo "<br><br><br><br><br><br><br>";
 
 
 <center>
-<form action='bookinfo.php' method=post><div class=table><table>";
+<form action='bookinfo.php' method=post><div class=table><table>
     <tr>
         <th>Library ID</th>
         <th>Book Name</th>
