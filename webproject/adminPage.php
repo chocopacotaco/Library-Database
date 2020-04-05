@@ -80,13 +80,16 @@ if (isset($_POST['submitI']))
 elseif(isset($_POST['submitD']))
 {
     $del="DELETE FROM bookinfo WHERE serial='$delBook'";
-    if(!mysqli_query($connect,$del))
+    if(!mysqli_query($connect,$del)){
         echo "<script>alert('There was a problem deleting the Book. Please try again.');</script>";
-    else echo "<script>alert('The book is now removed');</script>";
+    }
+    else { 
+        echo "<script>alert('The book is now removed');</script>";
+    }
 }
 
 if(isset($_POST['showLibrary']))
-    header("refresh:0 URL=bookinfo.php");
+    header("refresh:0 URL=adminBookInfo.php");
 
 if(isset($_POST['showStudents']))
     header("refresh:0 URL=studentList.php");
@@ -102,27 +105,27 @@ if(isset($_POST['showRequested']))
 <center>
 <form method=post action="adminPage.php">
 <br><br><br>
-<input type=text name=serialToDelete placeholder="Serial number to delete a Book"><br>
+<input type=text name="serialToDelete" placeholder="Serial number to delete a Book"><br>
 <br>
 <input class=button type=submit name=submitD value="Remove Book">
 <br><br>
 - - - - - - - - - - - - - - - - - - - -&emsp;&emsp; OR &emsp;&emsp;- - - - - - - - - - - - - - - - - - - -
 <br><br>
 
-<input type=text name=serial placeholder="Serial Number">
+<input type=text name="serial" placeholder="Serial Number">
 <br><br>
-<input type=text name=title placeholder="Book Title">
+<input type=text name="title" placeholder="Book Title">
 <br><br>
-<input type=text name=author placeholder="Author">
+<input type=text name="author" placeholder="Author">
 <br><br>
-<input class=button type=submit name=submitI value="Add Book">
+<input class=button type=submit name="submitI" value="Add Book">
 <br>
 <br>
-<input type=submit class=button name=showLibrary value="Show Library">
+<input type=submit class=button name="showLibrary" value="Show Library">
 <br>
-<input type=submit class=button name=showRequested value="Show Requested Books">
+<input type=submit class=button name="showRequested" value="Show Requested Books">
 <br>
-<input type=submit class=button name=showStudents value="Show Student List">
+<input type=submit class=button name="showStudents" value="Show Student List">
 </form>
 </center>
 </div>

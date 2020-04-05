@@ -1,0 +1,90 @@
+<html>
+<title>Book Info</title>
+<head>
+<link rel="stylesheet" type="text/css" href="CSSstylesheet.css">
+</head>
+<body>
+    <div class=navbar>
+        <a href="landingpage.php"><img src="home3.png" style="position:relative; left:7px; top:7px; align-content:center; width:40px; height:40px;"></a>
+        <form action="bookinfo.php" method=post style="position:fixed; top:0px; right:5px;" >
+               
+        </form>
+    </div>
+
+    <div style="text-align:center; margin:auto;
+                    position:relative; top:11vh;
+                    box-shadow:0px 0px 5px black;
+                    border-radius:6px;
+                    text-shadow:0px 0px 4px black;
+                    width:50vw;
+                    background-color:rgba(0,0,0,.7);">
+        <br>
+        Current Book: #Book Name
+        <br><br>
+    </div>
+
+    <br>
+
+    <div style="margin:auto;
+    position:relative; top:11vh;
+    box-shadow:0px 0px 5px black;
+    border-radius:6px;
+    text-shadow:0px 0px 4px black;
+    width:50vw;
+    background-color:rgba(0,0,0,.7);">
+            <form id="extendForm">
+                Author's First Name<br>
+                <input type="text" name="AuthorFirst"><br><br>
+
+                Author's Middle inital<br>
+                <input type="text" name="AuthorMid"><br><br>
+
+                Author's Last Name<br>
+                <input type="text" name="AuthorLast"><br><br>
+
+                Books Full Title<br>
+                <input type="text" name="fullTitle"><br><br>
+
+                Series Full Name<br>
+                <input type="text" name="seriesTitle"><br><br>
+
+                Date of Publishing<br>
+                <input type="date" name="publishDate"><br><br>
+
+                Author's First Name<br>
+                <input type="number" min=1 name="pageNumbs"><br><br>
+
+                Author's First Name<br>
+                <select name="fictionBool">
+                    <option value="true">Fiction</option>
+                    <option value="false">NonFiction</option>
+                </select>
+                <br><br>
+
+                  Author's First Name<br>
+                <select name="genreSelect">
+                    <option value="true">Fiction</option>
+                    <option value="saab">NonFiction</option>
+                </select>
+                <br><br>
+
+                Author's First Name<br>
+                <select name="subGenre">
+                    <option value="true">Fiction</option>
+                    <option value="saab">NonFiction</option>
+                </select><br><br>
+
+                <input type="submit" value="Submit">
+            </form>
+            Plot Summery<br>
+            <textarea rows="4" cols="50" name="plot" form="extendForm"></textarea>
+            <span style="padding-bottom:80px;"></span>
+    </div>
+    <br>
+   
+    <footer>
+
+    </footer>
+
+</body>
+</html>

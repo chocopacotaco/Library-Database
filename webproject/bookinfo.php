@@ -8,10 +8,6 @@
 
         <div class=navbar>
         <a href="landingpage.php"><img src="home3.png" style="position:relative; left:7px; top:7px; align:center; width:40px; height:40px;"></a>
-        <form action="adminPage.php" method=post style="position:fixed; top:0px; right:5px;" >
-                <?php if(is_null($_SESSION['mail'])) echo "<input style='padding:10px; float:right; height:45px;' type=submit class=button name=admin value='Admin Page'>"; ?>        
-        <?php if(!is_null($_SESSION['mail'])) echo "<input style='float:right; padding:10px; height:45px;' type=submit class=button name=signOut value='Sign Out'>"; ?>  
-        </form>
         <form action="bookinfo.php" method=post style="position:fixed; top:0px; right:5px;" >
                
         </form>
@@ -30,6 +26,14 @@
 
 ?>
 
+
+<center>
+<form action='bookinfo.php' method=post><div class=table><table>";
+    <tr>
+        <th>Book Name</th>
+        <th>Author</th>
+        <th>More Info</th>
+    </tr>
 <?php
 
     $host="localhost";
@@ -43,7 +47,7 @@ if(!$connect)
     echo "<script type='text/javascript'>alert(' Can't connect to the Database ');    </script>";
 }
 
-$table = mysqli_query($connect,"SELECT * FROM bookinfo");
+$result = mysqli_query($connect,"SELECT * FROM bookinfo");
 $numOfRows = mysqli_num_rows($table);
 $numOfFields = mysqli_num_fields($table);
 $colName = mysqli_query($connect,"SHOW COLUMNS FROM bookinfo");
@@ -63,25 +67,12 @@ echo "<div style='text-align:center;
                     <br><br></div>";
 
 //--------------------------------------------------------------------------------  PRINTING TABLE
-echo "<center><form action='bookinfo.php' method=post><div class=table><table>";
-    echo "<tr>";
 
-while($colNameArr = mysqli_fetch_array($colName))
-{
-    echo "<th>".strtoupper($colNameArr[0])."</th>";
-}
-    echo "</tr>";
-while($tableRow = mysqli_fetch_array($table))
-{
-    echo "<tr>";
-    
-    for($i=0;$i<$numOfFields;$i++)
-    {
-        echo "<td>".$tableRow[$i]."</td>";
+while($row = $result->fetch_assoc()) {
+    echo "<tr><td>" . $row["title"] . "</td><td>"
+    . $row["author"]. "</td>" . "<td><a href='BookExtendedInfo.html'>More Info</a></td>" 
+    . "</tr>";
     }
-
-    echo "</tr>";
-}
 echo "</table></div></form></center>";
 echo "<br><br><br><br><br><br><br>";
 
