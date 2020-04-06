@@ -103,7 +103,7 @@ echo "<br><br><br><br><br><br><br>";
 
 
 <center>
-<form action='bookinfo.php' method=post><div class=table><table>
+<form action='BookExtendedInfo.php' method=post><div class=table><table>
     <tr>
         <th>Library ID</th>
         <th>Book Name</th>
@@ -149,7 +149,10 @@ while($row = $result->fetch_assoc()) {
     "<td>" . $row["serialNum"] . "</td>".
         "<td>" . $row["title"] . "</td>".
         "<td>" . $row["author"] . "</td>".
-    "<td><a href='BookExtendedInfo.html'>More Info</a></td>" 
+    "<td><form action='/BookExtendedInfo.html' method='Post'>
+    <input type='hidden' value='".$row["serialNum"]."' name='serialNum'>
+    <input type='submit' value='More Info'>
+  </form></td>" 
     . "</tr>";
     }
 echo "</table></div></form></center>";

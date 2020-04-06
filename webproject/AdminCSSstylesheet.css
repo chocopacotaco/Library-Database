@@ -12,14 +12,14 @@ th
 {
 	color:rgb(38, 26, 13);
 	padding: 10px;
-	background-color: rgba(172, 115, 57,0.7);
+	background-color: rgba(172, 115, 57,1);
 	height: 40px;
 }
 td
 {
-	border-right: 3px solid rgba(172, 115, 57,0.7);
+	border-right: 3px solid rgba(172, 115, 57,1);
 	padding: 10px;
-	background-color: rgba(0,0,0,0.7);
+	background-color: rgba(0,0,0,0.9);
 	height: 40px;
 }
 
@@ -98,7 +98,7 @@ div.frm
 	margin:auto;
 	box-shadow: 0px 0px 20px 7px black;
 	border: 1px solid rgb(20, 13, 6);
-	background-color: rgba(78, 52, 24,0.7);
+	background-color: rgba(78, 52, 24,1);
 	width: 700px;
 }
 div.navbar
@@ -129,7 +129,7 @@ div.developers-content
 div.about
 {
 	color: rgb(255, 255, 255);
-	background-color: rgba(255, 140, 26,0.7);
+	background-color: rgba(255, 140, 26,1);
 	font-style: italic;
 	box-shadow: 4px 4px 15px black;
 	height: 250px;
