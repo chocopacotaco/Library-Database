@@ -32,11 +32,13 @@
 
 
 <center>
-<form action='adminBookInfo.php' method=post><div class=table><table>";
+<div class=table><table>";
     <tr>
+        <th>Serial</th>
         <th>Book Name</th>
         <th>Author</th>
-        <th>More Info</th>
+        <th>Veiw Info</th>
+        <th>Add Extended Info</th>
     </tr>
 <?php
 
@@ -76,14 +78,25 @@ while($tableRow = mysqli_fetch_array($table))
 {
     echo "<tr>";
     
-    for($i=0;$i<$numOfFields;$i++)
+    for($i=0;$i<3;$i++)
     {
         echo "<td>".$tableRow[$i]."</td>";
     }
 
+    echo "<td><form action='BookExtendedInfo.php' method='Post'>".
+    "<input type='hidden' value='".$tableRow["serialNum"]."' name='serialNum'>".
+    "<input type='submit' value='More Info'>".
+    "</form></td>";
+
+    echo "<td><form action='addExtendedInfo.php' method='Post'>".
+    "<input type='hidden' value='".$tableRow["serialNum"]."' name='serialNum'>".
+    "<input type='submit' value='More Info'>".
+    "</form></td>";
+
     echo "</tr>";
 }
-echo "</table></div></form></center>";
+
+echo "</table></div></center>";
 echo "<br><br><br><br><br><br><br>";
 
 ?>
