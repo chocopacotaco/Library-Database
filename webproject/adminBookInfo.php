@@ -83,7 +83,7 @@ while($tableRow = mysqli_fetch_array($table))
         echo "<td>".$tableRow[$i]."</td>";
     }
 
-    echo "<td><form action='BookExtendedInfo.php' method='Post'>".
+    echo "<td><form action='adminBookExtendedInfo.php' method='Post'>".
     "<input type='hidden' value='".$tableRow["serialNum"]."' name='serialNum'>".
     "<input type='submit' value='More Info'>".
     "</form></td>";
