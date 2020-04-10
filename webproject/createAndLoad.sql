@@ -5,7 +5,7 @@ use mydb;
 CREATE TABLE `adminpassword`  (
   `adminID` int NOT NULL auto_increment,
   `username` varchar(255) NULL,
-  `password` varchar(255) NULL,
+  `passwordl` varchar(255) NULL,
   `userFK` varchar(255) NULL,
   PRIMARY KEY (`adminID`)
 );
@@ -57,7 +57,7 @@ ADD SubGenreType varchar(255) DEFAULT NULL,
 ADD PlotSum varchar(8192) DEFAULT NULL;
 
 SET time_zone = "+00:00";
-INSERT INTO adminpassword (username, password, userFK) VALUES ('admin', 'password', NULL);
+INSERT INTO adminpassword (username, passwordl, userFK) VALUES ('admin', 'password', NULL);
 INSERT INTO userinfo (finame, laname, loadd, ltadd, phone, mail, passwordl) VALUES
 ('Dill', 'm', '56 circle lane', 'Statesboro GA 41021', '1234567890', 'dill@gmail.com', 'password');
 INSERT INTO bookinfo (serialNum, title, author, AuthFirst, AuthMid, AuthLast, SeriesTitle, PubDate, PageNum, GenreType, SubGenreType, PlotSum) VALUES
