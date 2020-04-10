@@ -99,18 +99,18 @@ while($tableRow = mysqli_fetch_array($table))
 }
 echo "</table></div></center>";
 echo "<br><br><br><br><br><br><br>";
-?>
 
 
-<center>
-<form action='BookExtendedInfo.php' method=post><div class=table><table>
-    <tr>
-        <th>Library ID</th>
-        <th>Book Name</th>
-        <th>Author</th>
-        <th>More Info</th>
-    </tr>
-<?php
+
+echo '<center>';
+echo '<div class=table><table>';
+echo '<tr>';
+echo '<th>Library ID</th>';
+echo '<th>Book Name</th>';
+echo '<th>Author</th>';
+echo '<th>More Info</th>';
+echo '</tr>';
+
 
     $host="localhost";
     $username="root";
@@ -149,13 +149,13 @@ while($row = $result->fetch_assoc()) {
     "<td>" . $row["serialNum"] . "</td>".
         "<td>" . $row["title"] . "</td>".
         "<td>" . $row["author"] . "</td>".
-    "<td><form action='/BookExtendedInfo.html' method='Post'>
+    "<td><form action='BookExtendedInfo.php' method='Post'>
     <input type='hidden' value='".$row["serialNum"]."' name='serialNum'>
     <input type='submit' value='More Info'>
   </form></td>" 
     . "</tr>";
     }
-echo "</table></div></form></center>";
+echo "</table></div></center>";
 echo "<br><br><br><br><br><br><br>";
 
 ?>

@@ -12,8 +12,8 @@ error_reporting(0);
 		<div class=navbar>
 		<a href="landingpage.php"><img src="home3.png" style="position:relative; left:7px; top:7px; align:center; width:40px; height:40px;"></a>
 		<form action="bookinfo.php" method=post style="position:fixed; top:0px; right:5px;" >
-		<?php if(is_null($_SESSION['mail'])) echo "<input style='padding:10px; float:right; height:45px;' type=submit class=button name=signIn value='Sign In'>"; ?>        
-		<?php if(!is_null($_SESSION['mail'])) echo "<input style='float:right; padding:10px; height:45px;' type=submit class=button name=signOut value='Sign Out'>"; ?>         
+		<?php if(!is_null($_SESSION['mail'])) echo "<input style='padding:10px; float:right; height:45px;' type=submit class=button name=signIn value='Sign In'>"; ?>        
+		<?php if(is_null($_SESSION['mail'])) echo "<input style='float:right; padding:10px; height:45px;' type=submit class=button name=signOut value='Sign Out'>"; ?>         
 		</form>
 		</div>
 		<?php
@@ -46,7 +46,7 @@ if(isset($_POST['submit']))
 	$count=mysqli_num_rows($result);
 	if($count==1)
 	{
-		$sql1="update $tbl_name set password='$userpassword' where mail='$usermail'";
+		$sql1="update $tbl_name set passwordl='$userpassword' where mail='$usermail'";
 		$res=mysqli_query($connect,$sql1);
 		echo "<script type='text/javascript'>alert('Password Successfully Changed');</script>";
 		header('refresh:0 URL=page1.php');

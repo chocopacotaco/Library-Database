@@ -49,7 +49,7 @@ if(isset($_POST['submit']))
     
     
     $userpassword=$_POST['apassword'];
-    $sql="SELECT * FROM userinfo WHERE mail='$usermail' and password1='$userpassword'";
+    $sql="SELECT * FROM userinfo WHERE mail='$usermail' and passwordl='$userpassword'";
     $result=mysqli_query($connect,$sql);
     $count=mysqli_num_rows($result);
     if($count==1)

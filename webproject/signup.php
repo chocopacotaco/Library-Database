@@ -63,7 +63,7 @@ if(isset($_POST['submit'])){
         echo "<script type='text/javascript'> alert('This email is already in use!')    </script>";
         header('refresh:0 URL=signup.php');
     } else {
-        $sql="INSERT INTO userinfo (finame,laname,loadd,ltadd,phone,mail,password1) VALUES('$n1','$n2','$n4','$n5','$n7','$n8','$n9')";
+        $sql="INSERT INTO userinfo (finame,laname,loadd,ltadd,phone,mail,passwordl) VALUES('$n1','$n2','$n4','$n5','$n7','$n8','$n9')";
         $sql1="INSERT INTO students(studentName) VALUES('$n1');";
         $sql2="INSERT INTO requestedbooks(bookName) VALUES('$n3');";
         $n8=str_replace('@','at',$n8);
