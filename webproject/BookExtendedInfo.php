@@ -27,7 +27,7 @@ td
         </form>
     </div>
 
-    <?php
+<?php
 $servername = "localhost";
 $username = "root";
 $password = "";

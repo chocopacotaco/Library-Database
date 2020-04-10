@@ -70,7 +70,11 @@ echo "<div style='text-align:center;
 
 while($row = $result->fetch_assoc()) {
     echo "<tr><td>" . $row["title"] . "</td><td>"
-    . $row["author"]. "</td>" . "<td><a href='BookExtendedInfo.html'>More Info</a></td>" 
+    . $row["author"]. "</td>" . "<td>" 
+    . "<form action='BookExtendedInfo.php' method='Post'>"
+    . "<input type='hidden' value='".$row["serialNum"]."' name='serialNum'>"
+    . "<input type='submit' value='More Info'>"
+    . "</form></td>"
     . "</tr>";
     }
 echo "</table></div></form></center>";

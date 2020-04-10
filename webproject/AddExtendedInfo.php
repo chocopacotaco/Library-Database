@@ -119,7 +119,7 @@ $conn->close();
                 <input type="date" name="publishDate" value='<?php echo "$publishing";?>' ><br><br>
 
                 Page Number: <br>
-                <input type="number" min=1 name="pageNumbs" value='<?php echo "$totalPages";?>' ><br><br>
+                <input type="number" name="pageNumbs" value='<?php echo "$totalPages";?>' ><br><br>
 
                 (Non)Fiction: <?php echo "$isFiction";?> <br>
                 <select name="fictionChoice" >
@@ -153,6 +153,7 @@ $conn->close();
                     <option value="Noir">Noir</option>
                     <option value="Lovecraftian">Lovecraftian</option>
                     <option value="Young Adult">Young Adult</option>
+                    <option value="Politico">Politico</option>
                 </select><br><br>
 
                 <input type="submit" value="Submit">
