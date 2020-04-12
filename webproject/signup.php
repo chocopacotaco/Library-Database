@@ -75,7 +75,7 @@ if(isset($_POST['submit'])){
             echo "<script type='text/javascript'> alert(' Successfully registered '); </script>";
             //mysqli_close($connect);
             //$connect=mysqli_connect($host,$username,$password,$db_name);
-            $user1="CREATE TABLE $n8 (serial VARCHAR(10) UNIQUE,title VARCHAR (50),author VARCHAR(30))";//-------CREATING USER SPECIFIC TABLE
+            $user1="CREATE TABLE $n8 (serialNum VARCHAR(10) UNIQUE,title VARCHAR (50),author VARCHAR(30))";//-------CREATING USER SPECIFIC TABLE
             if(!mysqli_query($connect,$user1)){
                 echo "<script type='text/javascript'> alert('ERROR: Could not able to execute $sql.  . mysqli_error($link);'); </script>";
             } else header('refresh:0 URL=userProf.php');

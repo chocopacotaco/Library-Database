@@ -44,18 +44,30 @@ if(isset($_POST['submit']))
     $_SESSION["finame"] = $_POST['fname'];
     
     $usermail = $_SESSION['mail'] = $_POST['amail'];
-    $_SESSION['mail']=str_replace('@','at',$_SESSION['mail']);
-    $_SESSION['mail']=str_replace('.','dot',$_SESSION['mail']);
+    //$_SESSION['mail']=str_replace('@','at',$_SESSION['mail']);
+    //$_SESSION['mail']=str_replace('.','dot',$_SESSION['mail']);
     
-    
+    global $userID;
     $userpassword=$_POST['apassword'];
     $sql="SELECT * FROM userinfo WHERE mail='$usermail' and passwordl='$userpassword'";
     $result=mysqli_query($connect,$sql);
+
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            $userID = $row["userID"];
+        }
+    } else {
+        echo "0 results";
+    }
+
+    $_SESSION['userID'] = $userID;
+
     $count=mysqli_num_rows($result);
     if($count==1)
     {
         
         //echo "<script type='text/javascript'>alert('Succesfully Logged In');</script>";
+        
         header('refresh:0 URL=userProf.php');
     }
     else

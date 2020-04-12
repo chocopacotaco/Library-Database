@@ -63,26 +63,33 @@ $connect=mysqli_connect($host,$username,$password,$db_name);
 </div>
 <br><br><br><br><br><br><br>
 
+
+<center><div class=table><div class=scroll>
+<table>
+    <tr>
+    <th>Serial Number</th>
+    <th>Book Title</th>
+    <th>Author</th>
+    <th>Date Added</th>
+    <th>More Info</th>
+    </tr>
 <?php
-
+global $userID;
 $mail = $_SESSION['mail'];
+$userID = $_SESSION['userID'];
 
-    $table = mysqli_query($connect,"SELECT * FROM $mail");
+    $table = mysqli_query($connect,"SELECT
+    bookinfo.serialNum, bookinfo.title, bookinfo.author, bookWishList.addDate
+    FROM bookWishList
+    JOIN bookinfo ON bookWishList.bookID = bookinfo.serialNum
+    WHERE bookWishList.userID = '$userID'");
 
     $numOfRows = mysqli_num_rows($table);
     $numOfFields = mysqli_num_fields($table);
-    $colName = mysqli_query($connect,"SHOW COLUMNS FROM $mail");
 
-
+    
 //--------------------------------------------------------------------------------  PRINTING USER SPECIFIC TABLE
-echo "<center><div class=table><div class=scroll><table>";
-    echo "<tr>";
 
-while($colNameArr = mysqli_fetch_array($colName))
-{
-    echo "<th>".strtoupper($colNameArr[0])."</th>";
-}
-    echo "</tr>";
 while($tableRow = mysqli_fetch_array($table))
 {
     echo "<tr>";
@@ -91,6 +98,11 @@ while($tableRow = mysqli_fetch_array($table))
     {
         echo "<td>".$tableRow[$i]."</td>";
     }
+    echo "<td>" 
+    . "<form action='BookExtendedInfo.php' method='Post'>"
+    . "<input type='hidden' value='".$tableRow["serialNum"]."' name='serialNum'>"
+    . "<input type='submit' value='More Info'>"
+    . "</form></td>";
     echo "</tr>";
 }
 echo "</table></div></div></center>";
@@ -150,24 +162,26 @@ while($row = $result->fetch_assoc()) {
   </form></td>" 
     . "</tr>";
     }
-echo "</table></div></div></center>";
-echo "<br><br><br><br><br><br><br>";
 
 ?>
 
+</table></div></div></center>
+<br><br><br><br><br><br><br>
 
 <div class=frm style="position:fixed; top:25vh; left:10px; padding:20px; width:300px; " >
-<form method=post action="wishlist.php">
 <center>
+<form method=post action="wishlist.php">
 You can add books to your Wishlist<br><br>
 <input style="width:205px;" type="text" name="srl" placeholder="Serial Number"><br><br>
-
 <input class=button type=submit name=submitSerial value="Order"><br><br>
+</form>
+
+<form method=post action="wishlist.php">
 Or you can remove them<br><br>
 <input style="width:250px;" type=text name=rmv placeholder="Serial Number"><br><br>
 <input class=button type=submit name=removeSerial value="Remove from Order">
-</center>
 </form>
+</center>
 </div>
 </body>
 </html>

@@ -7,6 +7,7 @@ if(is_null($_SESSION['mail']))
     header('refresh:0 URL=signin.php');
 }
 $mail = $_SESSION['mail'];
+$userID = $_SESSION['userID'];
 //--------------------------------------------------------------------------ADDING BOOK TO WISHLIST
 
 if(isset($_POST['srl'])){
@@ -14,6 +15,7 @@ if(isset($_POST['srl'])){
 }
 
 if(isset($_POST['rmv'])){
+    echo "<script> alert('Remove'); </script>";
     $rmv2 = $_POST['rmv'];
 }
 
@@ -35,8 +37,8 @@ if (isset($_POST['submitSerial']))
     }
     else
     {
-        if(mysqli_query($connect,"INSERT INTO $mail VALUES('$book[0]','$book[1]','$book[2]')"))
-        {   
+        $sql="INSERT INTO bookwishlist (bookID, userID, addDate) VALUES('$ser','$userID', CURRENT_DATE() )";
+        if( mysqli_query($connect, $sql) ){   
             echo "<script> alert('Added to Order'); </script>";
             header('refresh:0 URL=userProf.php');
         }
@@ -44,14 +46,14 @@ if (isset($_POST['submitSerial']))
             echo "<script> alert('Already present in the Order'); </script>";
             header('refresh:0 URL=userProf.php');
         }
-        
     }        
 }
 elseif(isset($_POST['removeSerial']))
 {
     $rmvSrl=$_POST['rmv'];
-    $remove=mysqli_query($connect,"DELETE FROM $mail WHERE title = (select title from bookinfo where serialNum = '$rmv2')");
-    if($remove)
+    $sql2="DELETE FROM bookwishlist WHERE bookID = '$rmv2' AND userID = '$userID'";
+    echo "<script> alert('$sql2'); </script>";
+    if( mysqli_query($connect, $sql2) )
     {
         echo "<script> alert('Book is removed from Order'); </script>";
         header('refresh:0 URL=userProf.php');
@@ -60,7 +62,7 @@ elseif(isset($_POST['removeSerial']))
         echo "<script> alert('Book is not present in your Order'); </script>";
         header('refresh:0 URL=userProf.php');
     }
-    
+
 }
 //header('refresh:0 URL=userProf.php');
 ?>
