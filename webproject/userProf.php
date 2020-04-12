@@ -35,10 +35,6 @@ session_start();
         }
         ?>
 
-
-
-
-
 <?php
 
     $host="localhost";
@@ -65,7 +61,7 @@ $connect=mysqli_connect($host,$username,$password,$db_name);
                     background-color:rgba(0,0,0,.7);">
 <h3>Hello <?php echo $_SESSION['finame']; ?> !</h3><br>Here are the books You Ordered
 </div>
-
+<br><br><br><br><br><br><br>
 
 <?php
 
@@ -79,7 +75,7 @@ $mail = $_SESSION['mail'];
 
 
 //--------------------------------------------------------------------------------  PRINTING USER SPECIFIC TABLE
-echo "<center><div class=table><table>";
+echo "<center><div class=table><div class=scroll><table>";
     echo "<tr>";
 
 while($colNameArr = mysqli_fetch_array($colName))
@@ -97,13 +93,25 @@ while($tableRow = mysqli_fetch_array($table))
     }
     echo "</tr>";
 }
-echo "</table></div></center>";
+echo "</table></div></div></center>";
 echo "<br><br><br><br><br><br><br>";
 
-
+echo "<div style='text-align:center;
+                    margin:auto;
+                    position:relative;
+                    top:11vh;
+                    box-shadow:0px 0px 5px black;
+                    border-radius:6px;
+                    text-shadow:0px 0px 4px black;
+                    width:50vw;
+                    background-color:rgba(0,0,0,.7);'>
+                    <br>
+        Current Book Catalogue
+                    <br><br></div>";
+echo "<br><br><br><br><br><br>";
 
 echo '<center>';
-echo '<div class=table><table>';
+echo '<div class=table><div class=scroll><table >';
 echo '<tr>';
 echo '<th>Library ID</th>';
 echo '<th>Book Name</th>';
@@ -129,19 +137,6 @@ $numOfFields = mysqli_num_fields($table);
 $colName = mysqli_query($connect,"SHOW COLUMNS FROM bookinfo");
 
 
-echo "<div style='text-align:center;
-                    margin:auto;
-                    position:relative;
-                    top:11vh;
-                    box-shadow:0px 0px 5px black;
-                    border-radius:6px;
-                    text-shadow:0px 0px 4px black;
-                    width:50vw;
-                    background-color:rgba(0,0,0,.7);'>
-                    <br>
-        Current Book Catalogue
-                    <br><br></div>";
-
 //--------------------------------------------------------------------------------  PRINTING TABLE
 
 while($row = $result->fetch_assoc()) {
@@ -155,54 +150,18 @@ while($row = $result->fetch_assoc()) {
   </form></td>" 
     . "</tr>";
     }
-echo "</table></div></center>";
+echo "</table></div></div></center>";
 echo "<br><br><br><br><br><br><br>";
-
-?>
-
-<?php
-//--------------------------------------------------------------------------ADDING BOOK TO WISHLIST
-
-if(isset($_POST['srl']))
-    {$ser = $_POST['srl'];}
-if (isset($_POST['submitSerial']))
-{
-    $book=mysqli_query($connect,"SELECT * FROM bookinfo WHERE serial='$ser'");
-    $book=mysqli_fetch_array($book);
-    if(is_null($book[0]))
-    {
-        echo "<script> alert('Book unavailable in Library'); </script>";
-    }
-    else
-    {
-        if(mysqli_query($connect,"INSERT INTO $mail VALUES('$book[0]','$book[1]','$book[2]')"))
-        {
-            echo "<script> alert('Added to Order'); </script>";
-            header('refresh:0');
-        }
-        else echo "<script> alert('Already present in the Ordert'); </script>";
-    }        
-}
-elseif(isset($_POST['removeSerial']))
-{
-    $rmvSrl=$_POST['rmv'];
-    $remove=mysqli_query($connect,"DELETE FROM $mail WHERE serial='$rmvSrl'");
-    if($remove)
-    {
-        echo "<script> alert('Book is removed from Order'); </script>";
-        header('refresh:0');
-    }
-    else echo "<script> alert('Book is not present in your Ordert'); </script>";
-}
 
 ?>
 
 
 <div class=frm style="position:fixed; top:25vh; left:10px; padding:20px; width:300px; " >
-<form method=post action="userProf.php">
+<form method=post action="wishlist.php">
 <center>
 You can add books to your Wishlist<br><br>
-<input style="width:205px;" type=text name=srl placeholder="Serial Number"><br><br>
+<input style="width:205px;" type="text" name="srl" placeholder="Serial Number"><br><br>
+
 <input class=button type=submit name=submitSerial value="Order"><br><br>
 Or you can remove them<br><br>
 <input style="width:250px;" type=text name=rmv placeholder="Serial Number"><br><br>
