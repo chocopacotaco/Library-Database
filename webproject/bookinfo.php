@@ -25,10 +25,23 @@
         }
 
 ?>
-
+<div style='text-align:center;
+                    margin:auto;
+                    position:relative;
+                    top:11vh;
+                    box-shadow:0px 0px 5px black;
+                    border-radius:6px;
+                    text-shadow:0px 0px 4px black;
+                    width:50vw;
+                    background-color:rgba(0,0,0,.7);'>
+    <br>
+    Current Book Catalogue
+    <br><br>
+</div>
+<br><br><br><br><br><br><br>
 
 <center>
-<form action='bookinfo.php' method=post><div class=table><table>";
+<form action='bookinfo.php' method=post><div class=table><div class="scroll" style="height: 60%;"><table>
     <tr>
         <th>Book Name</th>
         <th>Author</th>
@@ -53,19 +66,6 @@ $numOfFields = mysqli_num_fields($table);
 $colName = mysqli_query($connect,"SHOW COLUMNS FROM bookinfo");
 
 
-echo "<div style='text-align:center;
-                    margin:auto;
-                    position:relative;
-                    top:11vh;
-                    box-shadow:0px 0px 5px black;
-                    border-radius:6px;
-                    text-shadow:0px 0px 4px black;
-                    width:50vw;
-                    background-color:rgba(0,0,0,.7);'>
-                    <br>
-        Current Book Catalogue
-                    <br><br></div>";
-
 //--------------------------------------------------------------------------------  PRINTING TABLE
 
 while($row = $result->fetch_assoc()) {
@@ -77,10 +77,10 @@ while($row = $result->fetch_assoc()) {
     . "</form></td>"
     . "</tr>";
     }
-echo "</table></div></form></center>";
-echo "<br><br><br><br><br><br><br>";
 
 ?>
+</table></div></div></form></center>
+<br><br><br><br><br><br><br>
 
 </body>
 </html>
