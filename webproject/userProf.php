@@ -181,6 +181,12 @@ Or you can remove them<br><br>
 <input style="width:250px;" type=text name=rmv placeholder="Serial Number"><br><br>
 <input class=button type=submit name=removeSerial value="Remove from Order">
 </form>
+
+<form method=post action="newRequest.php">
+Not finding a book in out system, request it!<br><br>
+<input style="width:250px;" type=text name=request placeholder="New Book!"><br><br>
+<input class=button type=submit name=removeSerial value="Request">
+</form>
 </center>
 </div>
 </body>

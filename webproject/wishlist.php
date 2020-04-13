@@ -15,7 +15,7 @@ if(isset($_POST['srl'])){
 }
 
 if(isset($_POST['rmv'])){
-    echo "<script> alert('Remove'); </script>";
+    //echo "<script> alert('Remove'); </script>";
     $rmv2 = $_POST['rmv'];
 }
 
@@ -38,27 +38,47 @@ if (isset($_POST['submitSerial']))
     else
     {
         $sql="INSERT INTO bookwishlist (bookID, userID, addDate) VALUES('$ser','$userID', CURRENT_DATE() )";
-        if( mysqli_query($connect, $sql) ){   
-            echo "<script> alert('Added to Order'); </script>";
-            header('refresh:0 URL=userProf.php');
-        }
-        else { 
+        $duplicates ="SELECT * from bookwishlist WHERE bookID = '$ser' AND userID = '$userID'";
+        $result = mysqli_query($connect,$duplicates);
+        $numOfRows = mysqli_num_rows($result);
+        if($numOfRows >= 1){
             echo "<script> alert('Already present in the Order'); </script>";
             header('refresh:0 URL=userProf.php');
+        } else {
+            if( mysqli_query($connect, $sql) ){   
+                echo "<script> alert('Added to Order'); </script>";
+                header('refresh:0 URL=userProf.php');
+            }
+            else { 
+                echo "<script> alert('Error'); </script>";
+                header('refresh:0 URL=userProf.php');
+            }
         }
+
     }        
 }
 elseif(isset($_POST['removeSerial']))
 {
     $rmvSrl=$_POST['rmv'];
     $sql2="DELETE FROM bookwishlist WHERE bookID = '$rmv2' AND userID = '$userID'";
-    echo "<script> alert('$sql2'); </script>";
-    if( mysqli_query($connect, $sql2) )
-    {
-        echo "<script> alert('Book is removed from Order'); </script>";
-        header('refresh:0 URL=userProf.php');
-    }
-    else {
+    $notExist ="SELECT * from bookwishlist WHERE bookID = '$rmv2' AND userID = '$userID'";
+    $result = mysqli_query($connect,$notExist);
+    $numOfRows = mysqli_num_rows($result);
+    
+    if($numOfRows >= 1){
+        if( mysqli_query($connect, $sql2) ){
+
+            echo "<script> alert('Book is removed from Order'); </script>";
+            header('refresh:0 URL=userProf.php');
+
+        } else {
+
+            echo "<script> alert('Remove Error'); </script>";
+            header('refresh:0 URL=userProf.php');
+
+        }
+
+    } else {
         echo "<script> alert('Book is not present in your Order'); </script>";
         header('refresh:0 URL=userProf.php');
     }
