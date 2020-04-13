@@ -27,8 +27,26 @@
 
 ?>
 
-<?php
+<div style='text-align:center;
+margin:auto; position:relative;
+top:11vh; box-shadow:0px 0px 5px black;
+border-radius:6px; text-shadow:0px 0px 4px black;
+width:50vw; background-color:rgba(0,0,0,.7);'>
+    <br>
+        Current Requested Books
+    <br><br>
+</div>
 
+
+<center>
+<div class=table><table>";
+<tr>
+    <th>RequestID</th>
+    <th>Book</th>
+    <th>User FK</th>
+    <th>Remove Books</th>
+</tr>
+<?php
     $host="localhost";
     $username="root";
     $password="";
@@ -43,31 +61,11 @@ if(!$connect)
 $table = mysqli_query($connect,"SELECT * FROM requestedBooks");
 $numOfRows = mysqli_num_rows($table);
 $numOfFields = mysqli_num_fields($table);
-$colName = mysqli_query($connect,"SHOW COLUMNS FROM bookinfo");
-
-
-echo "<div style='text-align:center;
-                    margin:auto;
-                    position:relative;
-                    top:11vh;
-                    box-shadow:0px 0px 5px black;
-                    border-radius:6px;
-                    text-shadow:0px 0px 4px black;
-                    width:50vw;
-                    background-color:rgba(0,0,0,.7);'>
-                    <br>
-        Current Requested Books
-                    <br><br></div>";
+$colName = mysqli_query($connect,"SHOW COLUMNS FROM requestedBooks");
 
 //--------------------------------------------------------------------------------  PRINTING TABLE
-echo "<center><form action='adminPage.php' method=post><div class=table><table>";
-    echo "<tr>";
 
-while($colNameArr = mysqli_fetch_array($colName))
-{
-    echo "<th>".strtoupper($colNameArr[0])."</th>";
-}
-    echo "</tr>";
+
 while($tableRow = mysqli_fetch_array($table))
 {
     echo "<tr>";
@@ -76,13 +74,28 @@ while($tableRow = mysqli_fetch_array($table))
     {
         echo "<td>".$tableRow[$i]."</td>";
     }
-
+    echo "<td><form action='removeRequest.php' method='Post'>
+    <input type='hidden' value='".$tableRow['requestID']."' name='serialNum'>
+    <input type='submit' value='Remove Book'>
+    </form></td>" ;
+    /*echo "<td><form action='approveRequest.php' method='Post'>
+    <input type='hidden' value='".$tableRow[0]."' name='serialNum'>
+    <input type='submit' value='Remove Book'>
+    </form></td>" ;*/
     echo "</tr>";
 }
-echo "</table></div></form></center>";
-echo "<br><br><br><br><br><br><br>";
-
 ?>
+
+</table></div>
+</center>
+
+<div class=frm style="position:fixed; top:25vh; left:10px; padding:20px; width:300px; " >
+<center>Request Controls</center>
+Here are books requested by users to add to our system.<br><br>
+Remeber ownly delete books if they are rejected or they have added to the system.
+</div>
+
+<br><br><br><br><br><br><br>
 
 </body>
 </html>
