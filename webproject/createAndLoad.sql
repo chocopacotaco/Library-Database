@@ -15,14 +15,25 @@ CREATE TABLE `bookinfo`  (
   `title` varchar(255) NULL,
   `author` varchar(255) NULL,
   `userBookInfoFk` varchar(255) NULL,
+  `AuthFirst` varchar(255) DEFAULT NULL,
+  `AuthMid` varchar(255) DEFAULT NULL,
+  `AuthLast` varchar(255) DEFAULT NULL,
+  `SeriesTitle` varchar(255) DEFAULT NULL,
+  `PubDate` DATE DEFAULT NULL,
+  `PageNum` INT DEFAULT NULL,
+  `FictionBool` BOOLEAN DEFAULT true,
+  `GenreType` varchar(255) DEFAULT NULL,
+  `SubGenreType` varchar(255) DEFAULT NULL,
+  `PlotSum` varchar(8192) DEFAULT NULL;
   PRIMARY KEY (`serialNum`)
 );
 
-CREATE TABLE `requestedbooks`  (
-  `requestID` int NOT NULL,
-  `bookNAme` varchar(255) NULL,
-  `userBookFK` varchar(255) NULL,
-  PRIMARY KEY (`requestID`)
+CREATE TABLE requestedbooks(
+    requestID int NOT NULL AUTO_INCREMENT,
+    bookName varchar(255) NOT NULL,
+    userFk int NOT NULL,
+    addDate DATE NOT NULL,
+    PRIMARY KEY (requestID)
 );
 
 CREATE TABLE `student`  (
@@ -44,17 +55,13 @@ CREATE TABLE `userinfo`  (
   PRIMARY KEY (`userID`)
 );
 
-ALTER TABLE bookinfo
-ADD AuthFirst varchar(255) DEFAULT NULL,
-ADD AuthMid varchar(255) DEFAULT NULL,
-ADD AuthLast varchar(255) DEFAULT NULL,
-ADD SeriesTitle varchar(255) DEFAULT NULL,
-ADD PubDate DATE DEFAULT NULL,
-ADD PageNum INT DEFAULT NULL,
- ADD FictionBool BOOLEAN DEFAULT true,
-ADD GenreType varchar(255) DEFAULT NULL,
-ADD SubGenreType varchar(255) DEFAULT NULL,
-ADD PlotSum varchar(8192) DEFAULT NULL;
+CREATE TABLE bookwishlist (
+    wishlistID int(11) NOT NULL AUTO_INCREMENT,
+    bookID varchar(255) NOT NULL,
+    userID int(11) NOT NULL,
+    addDate DATE NOT NULL,
+    PRIMARY KEY (wishListID)
+);
 
 SET time_zone = "+00:00";
 INSERT INTO adminpassword (username, passwordl, userFK) VALUES ('admin', 'password', NULL);
