@@ -24,7 +24,7 @@ CREATE TABLE `bookinfo`  (
   `FictionBool` BOOLEAN DEFAULT true,
   `GenreType` varchar(255) DEFAULT NULL,
   `SubGenreType` varchar(255) DEFAULT NULL,
-  `PlotSum` varchar(8192) DEFAULT NULL;
+  `PlotSum` varchar(8192) DEFAULT NULL,
   PRIMARY KEY (`serialNum`)
 );
 
