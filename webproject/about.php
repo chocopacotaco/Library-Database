@@ -37,7 +37,7 @@ if(isset($_POST['submit']))
 {
     $username = $_SESSION['username'] = $_POST['user'];
     $adminpassword=$_POST['pass'];
-    $sql="SELECT * FROM adminpassword WHERE username='$username' and password='$adminpassword'";
+    $sql="SELECT * FROM adminpassword WHERE username='$username' and passwordl='$adminpassword'";
     $result=mysqli_query($connect,$sql);
     $count=mysqli_num_rows($result);
     if($count==1)
