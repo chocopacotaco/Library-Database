@@ -29,9 +29,25 @@
 
 ?>
 
+<div style='text-align:center;
+                    margin:auto;
+                    position:relative;
+                    top:11vh;
+                    box-shadow:0px 0px 5px black;
+                    border-radius:6px;
+                    text-shadow:0px 0px 4px black;
+                    width:50vw;
+                    background-color:rgba(0,0,0,.7);'>
+    <br>
+        Current Book Catalogue
+    <br><br>
+</div>
+
+<br><br><br><br><br><br><br>
 
 <center>
-<div class=table><table>";
+<div class=table><div class=scroll style="height: 70%;">
+<table>
     <tr>
         <th>Serial</th>
         <th>Book Name</th>
@@ -57,20 +73,6 @@ $numOfRows = mysqli_num_rows($table);
 $numOfFields = mysqli_num_fields($table);
 $colName = mysqli_query($connect,"SHOW COLUMNS FROM bookinfo");
 
-
-echo "<div style='text-align:center;
-                    margin:auto;
-                    position:relative;
-                    top:11vh;
-                    box-shadow:0px 0px 5px black;
-                    border-radius:6px;
-                    text-shadow:0px 0px 4px black;
-                    width:50vw;
-                    background-color:rgba(0,0,0,.7);'>
-                    <br>
-        Current Book Catalogue
-                    <br><br></div>";
-
 //--------------------------------------------------------------------------------  PRINTING TABLE
 
 while($tableRow = mysqli_fetch_array($table))
@@ -95,10 +97,11 @@ while($tableRow = mysqli_fetch_array($table))
     echo "</tr>";
 }
 
-echo "</table></div></center>";
-echo "<br><br><br><br><br><br><br>";
-
 ?>
+
+</table></div><div>
+</center>
+<br><br><br><br><br><br><br>
 
 </body>
 </html>
