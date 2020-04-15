@@ -64,21 +64,26 @@ if(isset($_POST['submit'])){
         header('refresh:0 URL=signup.php');
     } else {
         $sql="INSERT INTO userinfo (finame,laname,loadd,ltadd,phone,mail,passwordl) VALUES('$n1','$n2','$n4','$n5','$n7','$n8','$n9')";
-        
-        //$sql1="INSERT INTO students(studentName) VALUES('$n1');";
-        
-
+        $sql1="INSERT INTO students(studentName) VALUES('$n1');";
+        $sql2="INSERT INTO requestedbooks(bookName) VALUES('$n3');";
+        $n8=str_replace('@','at',$n8);
+        $n8=str_replace('.','dot',$n8);
         $_SESSION['mail']=$n8;
         if(mysqli_query($connect, $sql)){
-            echo "<script type='text/javascript'> alert(' Successfully requested '); </script>";
-            //mysqli_query($connect, $sql1);
-            header('refresh:0 URL=signin.php');
+            mysqli_query($connect, $sql2);
+            mysqli_query($connect, $sql1);
+            echo "<script type='text/javascript'> alert(' Successfully registered '); </script>";
+            //mysqli_close($connect);
+            //$connect=mysqli_connect($host,$username,$password,$db_name);
+            $user1="CREATE TABLE $n8 (serialNum VARCHAR(10) UNIQUE,title VARCHAR (50),author VARCHAR(30))";//-------CREATING USER SPECIFIC TABLE
+            if(!mysqli_query($connect,$user1)){
+                echo "<script type='text/javascript'> alert('ERROR: Could not able to execute $sql.  . mysqli_error($link);'); </script>";
+            } else header('refresh:0 URL=userProf.php');
         } else {
             echo "<script type='text/javascript'> alert('ERROR')    </script>";
-            header('refresh:0 URL=signup.php');
-            
+            //header('refresh:0 URL=signup.php');
         }
-        //echo "<script type='text/javascript'> alert('success')    </script>";
+        echo "<script type='text/javascript'> alert('success')    </script>";
         
     }
 
@@ -93,11 +98,11 @@ mysqli_close($connect);
 <center>
 <div class=frm align=center>
 <br><br><br>
-<h1 style="color:#392613; text-shadow: 0px 0px 20px #bf8040;">
+<h1 style="color:black; text-shadow: 0px 0px 20px #bf8040;">
 SIGN UP
 </h1>
 <br>
-<strong><input style="width:190px;" class=box type=text placeholder="First Name" name="finame" value="test" required></input>
+<strong><input style="width:190px;" class=box type=text placeholder="First Name" name="finame" value="derek" required></input>
 &emsp;
 <input style="width:180px;" class=box type=text name="laname" placeholder="Last Name" value="derek" required></input>
 
@@ -116,7 +121,10 @@ SIGN UP
 <input class=box type=text name="phone" placeholder="Phone Number" pattern="{1000000000,9999999999}" value="9126463204" required></input>
 <br><br>
 
-<input class=box type="email" placeholder="Your Email" name="mail"  value="test@gmail.com" required></input>
+<input class=box type="requestbook" placeholder="Requested Book" name="requestbook" value="hobit" required></input>
+<br><br>
+
+<input class=box type="email" placeholder="Your Email" name="mail"  value="derek1@gmail.com" required></input>
 
 <br><br>
 <input class=box type=password name="password" placeholder="Password" value="password" required></input>

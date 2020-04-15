@@ -7,10 +7,9 @@
 <body>
 
         <div class=navbar>
-        <a href="landingpage.php"><img src="home3.png" style="position:relative; left:7px; top:7px; align:center; width:40px; height:40px;"></a>
+        <a href="landingpage.php"><img src="home3.png" style="position:relative; left:7px; top:7px; align-content:center; width:40px; height:40px;"></a>
         <form action="adminPage.php" method=post style="position:fixed; top:0px; right:5px;" >
-                <?php if(is_null($_SESSION['mail'])) echo "<input style='padding:10px; float:right; height:45px;' type=submit class=button name=admin value='Admin Page'>"; ?>        
-        <?php if(!is_null($_SESSION['mail'])) echo "<input style='float:right; padding:10px; height:45px;' type=submit class=button name=signOut value='Sign Out'>"; ?>  
+        <input style='padding:10px; float:right; height:45px;' type=submit class=button name=admin value='Admin Page'>
         </form>
         </div>
         <?php
@@ -93,7 +92,7 @@ while($tableRow = mysqli_fetch_array($table))
 <div class=frm style="position:fixed; top:25vh; left:10px; padding:20px; width:300px; " >
 <center>Request Controls</center>
 Here are books requested by users to add to our system.<br><br>
-Remeber ownly delete books if they are rejected or they have added to the system.
+Remember only delete books if they are rejected or they have added to the system.
 </div>
 
 <br><br><br><br><br><br><br>
