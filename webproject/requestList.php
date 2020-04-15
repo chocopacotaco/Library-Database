@@ -44,6 +44,7 @@ width:50vw; background-color:rgba(0,0,0,.7);'>
     <th>RequestID</th>
     <th>Book</th>
     <th>User FK</th>
+    <th>Date added</th>
     <th>Remove Books</th>
 </tr>
 <?php
