@@ -6,13 +6,12 @@
 </head>
 <body>
 
-        <div class=navbar>
-        <a href="landingpage.php"><img src="home3.png" style="position:relative; left:7px; top:7px; align:center; width:40px; height:40px;"></a>
+<div class=navbar>
+        <a href="landingpage.php"><img src="home3.png" style="position:relative; left:7px; top:7px; align-content:center; width:40px; height:40px;"></a>
         <form action="adminPage.php" method=post style="position:fixed; top:0px; right:5px;" >
-        <?php if(is_null($_SESSION['mail'])) echo "<input style='padding:10px; float:right; height:45px;' type=submit class=button name=admin value='Admin Page'>"; ?>        
-        <?php if(!is_null($_SESSION['mail'])) echo "<input style='float:right; padding:10px; height:45px;' type=submit class=button name=signOut value='Sign Out'>"; ?>         
+        <input style='padding:10px; float:right; height:45px;' type=submit class=button name=admin value='Admin Page'>
         </form>
-        </div>
+    </div>
         <?php
 
         if(isset($_POST['admin']))

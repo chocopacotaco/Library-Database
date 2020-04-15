@@ -66,12 +66,13 @@ $conn->close();
 <link rel="stylesheet" type="text/css" href="CSSstylesheet.css">
 </head>
 <body>
-    <div class=navbar>
+<div class=navbar>
         <a href="landingpage.php"><img src="home3.png" style="position:relative; left:7px; top:7px; align-content:center; width:40px; height:40px;"></a>
-        <form action="bookinfo.php" method=post style="position:fixed; top:0px; right:5px;" >
-               
+        <form action="adminBookInfo.php" method=post style="position:fixed; top:0px; right:5px;" >
+        <input style='padding:10px; float:right; height:45px;' type=submit class=button name=admin value='Return to Catalog'>
         </form>
     </div>
+
 
     <div style="text-align:center; margin:auto;
                     position:relative; top:11vh;

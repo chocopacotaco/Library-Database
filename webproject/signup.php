@@ -98,7 +98,7 @@ mysqli_close($connect);
 <center>
 <div class=frm align=center>
 <br><br><br>
-<h1 style="color:#392613; text-shadow: 0px 0px 20px #bf8040;">
+<h1 style="color:black; text-shadow: 0px 0px 20px #bf8040;">
 SIGN UP
 </h1>
 <br>
