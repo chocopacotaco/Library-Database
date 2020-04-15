@@ -64,10 +64,6 @@ if(isset($_POST['author']))
 {
     $author=($_POST['author']);
 }
-    
-
-
-
 
 if (isset($_POST['submitI']))
 {
@@ -75,17 +71,6 @@ if (isset($_POST['submitI']))
     if(!mysqli_query($connect,$insert))
         echo "<script>alert('There was a problem adding the Book or it already exists in the Library.');</script>";
     else echo "<script>alert('The book is now added');</script>";
-}
-
-elseif(isset($_POST['submitD']))
-{
-    $del="DELETE FROM bookinfo WHERE serial='$delBook'";
-    if(!mysqli_query($connect,$del)){
-        echo "<script>alert('There was a problem deleting the Book. Please try again.');</script>";
-    }
-    else { 
-        echo "<script>alert('The book is now removed');</script>";
-    }
 }
 
 if(isset($_POST['showLibrary']))
@@ -103,15 +88,16 @@ if(isset($_POST['showRequested']))
 ?>
 <div class=frm>
 <center>
-<form method=post action="adminPage.php">
+<form method=post action="deleteBook.php">
 <br><br><br>
 <input type=text name="serialToDelete" placeholder="Serial number to delete a Book"><br>
 <br>
-<input class=button type=submit name=submitD value="Remove Book">
+<input class=button type=submit name=submitDelete value="Remove Book">
 <br><br>
+</form>
 - - - - - - - - - - - - - - - - - - - -&emsp;&emsp; OR &emsp;&emsp;- - - - - - - - - - - - - - - - - - - -
 <br><br>
-
+<form method=post action="adminPage.php">
 <input type=text name="serial" placeholder="Serial Number">
 <br><br>
 <input type=text name="title" placeholder="Book Title">
